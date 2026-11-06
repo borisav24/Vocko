@@ -118,7 +118,8 @@
   .pail-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
   .pail-fig:has(img) svg,.pail-fig:has(img) b{display:none}
   .item h3{display:inline-block;position:relative;font-size:clamp(1.55rem,2.3vw,2.1rem);padding-bottom:6px}
-  .item h3::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:8px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c20-4 38 2 58 0s40-3 58 0' fill='none' stroke='%23CF2B38' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+  /* boja talasa dolazi iz --accent na .item, a oblik iz maske */
+  .item h3::after{--wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c20-4 38 2 58 0s40-3 58 0' fill='none' stroke='%23CF2B38' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");content:"";position:absolute;left:0;right:0;bottom:-3px;height:8px;background-color:var(--accent,#CF2B38);-webkit-mask-image:var(--wave);mask-image:var(--wave);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
   .item .cap{margin-top:16px}
   .item .cap p{margin-top:4px}
   .p-group{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);align-items:center;margin-top:clamp(52px,7vw,96px);padding-top:clamp(36px,4vw,56px);border-top:2px solid var(--line)}
@@ -440,7 +441,7 @@
     </div>
 
     <div class="pails" id="lista-proizvoda">
-      <article class="item pail" data-anim="up">
+      <article class="item pail" data-anim="up" style="--accent:#A98821">
         <div class="pail-fig" style="--tint:#F8D0C2">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: jabuka mlevena</b>
@@ -449,7 +450,7 @@
         <div class="cap"><h3>Jabuka mlevena</h3><p>Glatko punjenje za štrudle, pite i kolače.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.08s">
+      <article class="item pail" data-anim="up" style="--accent:#8E1B2C;--d:.08s">
         <div class="pail-fig" style="--tint:#F2B8BC">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: višnja</b>
@@ -458,7 +459,7 @@
         <div class="cap"><h3>Višnja</h3><p>Za pite, štrudle i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.16s">
+      <article class="item pail" data-anim="up" style="--accent:#699837;--d:.16s">
         <div class="pail-fig" style="--tint:#FBE7A6">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: jabuka kocka</b>
@@ -467,7 +468,7 @@
         <div class="cap"><h3>Jabuka kocka</h3><p>Komadići jabuke za pite i štrudle.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.24s">
+      <article class="item pail" data-anim="up" style="--accent:#D7263D;--d:.24s">
         <div class="pail-fig" style="--tint:#F5B5AE">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: jagoda</b>
@@ -476,7 +477,7 @@
         <div class="cap"><h3>Jagoda</h3><p>Za krofne, kroasane i kolače.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up">
+      <article class="item pail" data-anim="up" style="--accent:#C2185B">
         <div class="pail-fig" style="--tint:#F4B3C3">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: malina</b>
@@ -485,7 +486,7 @@
         <div class="cap"><h3>Malina</h3><p>Za kolače, krofne i kroasane.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.08s">
+      <article class="item pail" data-anim="up" style="--accent:#5E2B6E;--d:.08s">
         <div class="pail-fig" style="--tint:#CDBBD6">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: šumsko voće</b>
@@ -494,7 +495,7 @@
         <div class="cap"><h3>Šumsko voće</h3><p>Za kolače, pite i kroasane.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.16s">
+      <article class="item pail" data-anim="up" style="--accent:#CA7725;--d:.16s">
         <div class="pail-fig" style="--tint:#FAD79B">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: kajsija</b>
@@ -503,7 +504,7 @@
         <div class="cap"><h3>Kajsija</h3><p>Klasika za kroasane i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.24s">
+      <article class="item pail" data-anim="up" style="--accent:#DA6E00;--d:.24s">
         <div class="pail-fig" style="--tint:#FBC784">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: pomorandža</b>
@@ -512,7 +513,7 @@
         <div class="cap"><h3>Pomorandža</h3><p>Miris citrusa za kolače i peciva.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up">
+      <article class="item pail" data-anim="up" style="--accent:#A58900">
         <div class="pail-fig" style="--tint:#FBEE9E">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: limun</b>
@@ -521,7 +522,7 @@
         <div class="cap"><h3>Limun</h3><p>Ukus citrusa za kolače i kroasane.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.08s">
+      <article class="item pail" data-anim="up" style="--accent:#4A2545;--d:.08s">
         <div class="pail-fig" style="--tint:#D3B8C4">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: suva šljiva</b>
@@ -533,7 +534,7 @@
 
     <div class="p-group">
       <h3 class="p-sub" data-anim="up">Pekarski nadev</h3>
-      <article class="item pail" data-anim="up">
+      <article class="item pail" data-anim="up" style="--accent:#3E7D3A">
         <div class="pail-fig" style="--tint:#C9DFB0">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: spanać</b>
@@ -551,7 +552,7 @@
   <div class="wrap">
     <h2 class="p-title" data-anim="up">Najprodavaniji proizvodi</h2>
     <div class="pails">
-      <article class="item pail" data-anim="up">
+      <article class="item pail" data-anim="up" style="--accent:#8E1B2C">
         <div class="pail-fig" style="--tint:#F2B8BC">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: višnja</b>
@@ -560,7 +561,7 @@
         <div class="cap"><h3>Višnja</h3><p>Za pite, štrudle i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.08s">
+      <article class="item pail" data-anim="up" style="--accent:#A98821;--d:.08s">
         <div class="pail-fig" style="--tint:#F8D0C2">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: jabuka mlevena</b>
@@ -578,7 +579,7 @@
     <h2 class="p-title" data-anim="up">Marmelade</h2>
     <p class="p-lead" data-anim="up" style="--d:.08s">Mešana i kajsija. Kao domaće.</p>
     <div class="pails">
-      <article class="item pail" data-anim="up">
+      <article class="item pail" data-anim="up" style="--accent:#A0284A">
         <div class="pail-fig" style="--tint:#DDB6CF">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: marmelada mešana</b>
@@ -587,7 +588,7 @@
         <div class="cap"><h3>Mešana</h3><p>Mešavina voća, tradicionalan domaći ukus.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.08s">
+      <article class="item pail" data-anim="up" style="--accent:#CA7725;--d:.08s">
         <div class="pail-fig" style="--tint:#FAD79B">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: marmelada kajsija</b>
@@ -604,7 +605,7 @@
   <div class="wrap">
     <h2 class="p-title" data-anim="up">Glazure, prelivi i nadevi</h2>
     <div class="pails">
-      <article class="item pail" data-anim="up">
+      <article class="item pail" data-anim="up" style="--accent:#B5651D">
         <div class="pail-fig" style="--tint:#E3B777">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: glazura karamel</b>
@@ -613,7 +614,7 @@
         <div class="cap"><h3>Glazura karamel</h3><p>Za torte, kolače i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.08s">
+      <article class="item pail" data-anim="up" style="--accent:#5A3221;--d:.08s">
         <div class="pail-fig" style="--tint:#A67C66">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: preliv čokolada</b>
@@ -622,7 +623,7 @@
         <div class="cap"><h3>Preliv čokolada</h3><p>Za torte, palačinke i sladoled.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.16s">
+      <article class="item pail" data-anim="up" style="--accent:#A38856;--d:.16s">
         <div class="pail-fig" style="--tint:#FBEBB8">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: nadev vanila</b>
@@ -639,7 +640,7 @@
   <div class="wrap">
     <h2 class="p-title" data-anim="up">Topinzi</h2>
     <div class="pails">
-      <article class="item pail" data-anim="up">
+      <article class="item pail" data-anim="up" style="--accent:#D7263D">
         <div class="pail-fig bottle" style="--tint:#F5B5AE">
           <svg aria-hidden="true"><use href="#bottle"/></svg>
           <b>Fotografija: toping jagoda</b>
@@ -648,7 +649,7 @@
         <div class="cap"><h3>Toping<br>jagoda</h3><small class="p-pack">pakovanje 1 kg</small><p>Za sladoled, palačinke i torte.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.08s">
+      <article class="item pail" data-anim="up" style="--accent:#5A3221;--d:.08s">
         <div class="pail-fig bottle" style="--tint:#C7A48E">
           <svg aria-hidden="true"><use href="#bottle"/></svg>
           <b>Fotografija: toping čokolada</b>
@@ -657,7 +658,7 @@
         <div class="cap"><h3>Toping<br>čokolada</h3><small class="p-pack">pakovanje 1 kg</small><p>Za sladoled, palačinke i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.16s">
+      <article class="item pail" data-anim="up" style="--accent:#A38856;--d:.16s">
         <div class="pail-fig bottle" style="--tint:#FBEBB8">
           <svg aria-hidden="true"><use href="#bottle"/></svg>
           <b>Fotografija: toping vanila</b>
@@ -666,7 +667,7 @@
         <div class="cap"><h3>Toping<br>vanila</h3><small class="p-pack">pakovanje 1 kg</small><p>Za kolače, palačinke i sladoled.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--d:.24s">
+      <article class="item pail" data-anim="up" style="--accent:#5E2B6E;--d:.24s">
         <div class="pail-fig bottle" style="--tint:#CDBBD6">
           <svg aria-hidden="true"><use href="#bottle"/></svg>
           <b>Fotografija: toping šumsko voće</b>
