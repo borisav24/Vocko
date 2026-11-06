@@ -75,8 +75,8 @@
 
   /* Hero: fotografija ide do desne ivice ekrana */
   .hero{position:relative;z-index:3;background:var(--orange);color:var(--ink-hero)}
-  .lead,.hero .tlink,.hero-note{color:var(--text-hero)}
-  .hero .btn{background:var(--text)}
+  .lead,.hero-note{color:var(--text-hero)}
+  .hero .btn{background:var(--ink-hero)}
   .hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);min-height:min(100svh,920px);padding-left:max(var(--pad),calc((100vw - var(--max))/2 + var(--pad)))}
   .hero-text{align-self:center;padding:120px 40px 90px 0;position:relative;z-index:2}
   h1{position:relative;display:inline-block;font-size:clamp(3.5rem,9vw,8.4rem);line-height:1}
@@ -169,6 +169,7 @@
   /* Hover samo tamo gde postoji miš */
   @media (hover:hover){
     .btn:hover{transform:translateY(-3px) rotate(-1deg);background:var(--red)}
+    .hero .btn:hover{background:color-mix(in srgb,var(--ink-hero) 90%,#000)}
     .contact .btn:hover{background:var(--soft)}
     nav a:hover::after{transform:scaleX(1);transform-origin:left}
     .tlink:hover::after{animation:redraw .55s var(--ease)}
