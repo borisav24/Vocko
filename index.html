@@ -356,10 +356,11 @@
   @keyframes drip-down{from{transform:scaleY(0)}to{transform:none}}
   @keyframes breathe{from{transform:scale(1)}to{transform:scale(1.07)}}
 
-  /* Uvodni ekran: voće pada 0–.59s, logo odskoči .42–.74s, ekran se otvara .76–1.12s */
-  .splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--orange);cursor:pointer;animation:splash-open .36s cubic-bezier(.22,1,.36,1) .76s both}
-  .splash-logo{width:min(72vw,520px);height:auto;overflow:visible;animation:splash-pop .32s cubic-bezier(.22,1,.36,1) .42s both}
-  .splash-fruit{animation:splash-fall .45s cubic-bezier(.34,1.56,.64,1) var(--d,0s) both}
+  /* Uvodni ekran: voće pada 0–1s, logo odskoči .85–1.35s, pauza .3s, ekran se otvara 1.65–2.15s.
+     --s dolazi iz SPLASH_SPEED i množi sva trajanja. */
+  .splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--orange);cursor:pointer;animation:splash-open calc(.5s*var(--s)) cubic-bezier(.22,1,.36,1) calc(1.65s*var(--s)) both}
+  .splash-logo{width:min(72vw,520px);height:auto;overflow:visible;animation:splash-pop calc(.5s*var(--s)) cubic-bezier(.22,1,.36,1) calc(.85s*var(--s)) both}
+  .splash-fruit{animation:splash-fall calc(.7s*var(--s)) cubic-bezier(.34,1.56,.64,1) calc(var(--d,0s)*var(--s)) both}
   html.splash-hold .hero,html.splash-hold .hero *{animation-play-state:paused!important}
   @keyframes splash-fall{from{opacity:0;transform:translateY(-260px)}20%{opacity:1}to{opacity:1;transform:none}}
   @keyframes splash-pop{from{transform:scale(.9)}60%{transform:scale(1.05)}to{transform:none}}
@@ -481,20 +482,23 @@
 
 <!-- ============ UVODNI EKRAN ============
      Ceo uvodni ekran nastaje u ovoj skripti, pa ga bez JavaScripta nema.
-     Da ga isključiš: SPLASH = true promeni u SPLASH = false. -->
+     Da ga isključiš: SPLASH = true promeni u SPLASH = false.
+     Brzina: SPLASH_SPEED = 1 je normalno, 2 je duplo brže, 0.5 duplo sporije. -->
 <script>
 (function () {
   var SPLASH = true;
+  var SPLASH_SPEED = 1;
   var root = document.documentElement;
   if (!SPLASH || location.hash || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var el = document.createElement('div');
   el.className = 'splash';
   el.setAttribute('aria-hidden', 'true');
+  el.style.setProperty('--s', 1 / SPLASH_SPEED);
   el.innerHTML = '<svg class="splash-logo" viewBox="0 0 330 130">' +
     '<use class="splash-fruit" href="#logo-blueberries"/>' +
-    '<use class="splash-fruit" style="--d:.07s" href="#logo-strawberry"/>' +
-    '<use class="splash-fruit" style="--d:.14s" href="#logo-raspberry"/>' +
+    '<use class="splash-fruit" style="--d:.15s" href="#logo-strawberry"/>' +
+    '<use class="splash-fruit" style="--d:.3s" href="#logo-raspberry"/>' +
     '<use href="#logo-word"/></svg>';
   document.currentScript.after(el);
   root.classList.add('noscroll', 'splash-hold');
@@ -509,7 +513,7 @@
     if (/^( |Arrow|Page|Home|End)/.test(e.key)) e.preventDefault();
     done();
   }
-  var timer = setTimeout(done, 1190);
+  var timer = setTimeout(done, 2300 / SPLASH_SPEED);
   el.addEventListener('click', done);
   addEventListener('keydown', onKey);
   el.addEventListener('animationstart', function (e) { if (e.target === el) root.classList.remove('splash-hold'); });
