@@ -87,6 +87,8 @@
   .actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 30px;margin-top:30px}
   .hero-visual{position:relative;padding-top:0}
   .hero-photo{position:absolute;inset:0;border-radius:260px 0 0 0;--tint:#FFC814}
+  /* svetli prelaz na vrhu fotografije, da se meni čita preko nje */
+  .hero-photo::before{content:"";position:absolute;inset:0 0 auto;z-index:1;height:150px;background:linear-gradient(rgba(251,241,223,.9) 60%,transparent);pointer-events:none}
   .hero-mini{position:absolute;left:-112px;bottom:64px;z-index:2;width:clamp(180px,17vw,250px);transform:rotate(-4deg)}
   .hero-mini .ph{aspect-ratio:4/5;border:8px solid var(--paper);--tint:#FBF1DF}
   .hero-note{position:absolute;left:-190px;bottom:18px;z-index:3;font-family:var(--hand);font-weight:600;font-size:1.7rem;line-height:1;transform:rotate(-3deg)}
@@ -215,11 +217,10 @@
     .hero-text{padding:112px var(--pad) 34px}
     .hero-visual{height:clamp(320px,88vw,560px);margin-left:18vw}
     .hero-photo{border-radius:130px 0 0 0}
+    .hero-photo::before{display:none}
     .hero-mini{left:-13vw;bottom:34px;width:clamp(128px,36vw,210px)}
     .hero-mini .ph{border-width:6px}
-    .hero-note{left:-14vw;bottom:-14px;font-size:1.45rem}
-    .hero .ph-in,.hero-mini .ph-in{padding:16px}
-    .hero-photo .ph-in{padding-left:30%}
+    .hero-note{left:-14vw;bottom:-30px;font-size:1.45rem}
 
     .products,.best,.p-line{--gap:20px}
 
@@ -411,12 +412,9 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="ph hero-photo" role="img" aria-label="Mesto za glavnu fotografiju">
+      <div class="ph hero-photo">
         <div class="ph-in">
-          <svg aria-hidden="true"><use href="#jar"/></svg>
-          <b>Glavna fotografija</b>
-          <small>tegle sa nalepnicama i voće, uspravna, najmanje 1200×1600 px</small>
-          <!-- ZAMENI: <img src="slike/glavna.jpg" alt="Tegle Voćko punjenja i sveže voće" fetchpriority="high"> -->
+          <img src="slike/glavna.jpg" alt="Hleb sa marmeladom od višnje i tegle sa višnjama" width="452" height="678" fetchpriority="high">
         </div>
       </div>
       <div class="hero-mini">
