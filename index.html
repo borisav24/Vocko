@@ -91,7 +91,7 @@
   .hero .drip{fill:var(--orange)}
 
   /* Proizvodi */
-  .products,.best,.jam{--gap:clamp(28px,5vw,72px)}
+  .products,.best,.p-line{--gap:clamp(28px,5vw,72px)}
   .products{padding-block:clamp(150px,16vw,250px) clamp(60px,7vw,100px)}
   .p-title{font-family:'Alegreya Sans',system-ui,sans-serif;font-weight:300;font-size:clamp(2.7rem,5.4vw,4.8rem);letter-spacing:0;color:var(--red)}
   .p-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 32px;margin-bottom:clamp(44px,6vw,84px)}
@@ -100,11 +100,14 @@
   .pails{--n:4;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(44px,6vw,84px) var(--gap);scroll-margin-top:84px}
   .pails .pail{flex:0 0 calc((100% - (var(--n) - 1)*var(--gap))/var(--n));min-width:0}
   .pail{text-align:center}
-  .item.pail h3{font-size:clamp(1.2rem,.8rem + 1vw,1.75rem)}
+  .item.pail h3{font-size:clamp(1.2rem,.8rem + 1vw,1.75rem);margin-inline:calc(var(--gap)/-2)}
   .pail-fig{position:relative;display:grid;place-items:center;width:min(88%,250px);aspect-ratio:1;margin-inline:auto;color:var(--ink)}
   .pail-fig>*{grid-area:1/1}
   .pail-fig svg{width:100%;height:100%;display:block}
   .pail-fig b{width:50%;margin-top:21%;font-size:clamp(.8rem,.72rem + .35vw,1rem);line-height:1.2}
+  .pail-fig.bottle{aspect-ratio:3/4}
+  .pail-fig.bottle b{align-self:end;width:42%;margin:0 0 6%}
+  .p-pack{display:block;font-size:.85em;font-weight:700;color:var(--red)}
   .pail-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
   .pail-fig:has(img) svg,.pail-fig:has(img) b{display:none}
   .item h3{display:inline-block;position:relative;font-size:clamp(1.55rem,2.3vw,2.1rem);padding-bottom:6px}
@@ -117,12 +120,13 @@
 
   /* Najprodavaniji */
   .best{padding-block:clamp(40px,5vw,70px) clamp(90px,11vw,160px)}
-  .best h2,.jam h2{text-align:center}
-  .best .pails,.jam .pails{margin-top:clamp(40px,5vw,72px)}
+  .best h2,.p-line h2{text-align:center}
+  .best .pails,.p-line .pails{margin-top:clamp(40px,5vw,72px)}
   .best .pails{--n:2;max-width:880px;margin-inline:auto}
   .best .pail-fig{width:min(88%,340px)}
 
-  /* Marmelade: bez donjeg razmaka, jer ga već daje gornji razmak sekcije O nama */
+  /* Marmelade, glazure, topinzi: bez razmaka ispod poslednje, jer ga daje gornji razmak sekcije O nama */
+  .p-line+.p-line{margin-top:clamp(90px,11vw,160px)}
   .p-lead{margin-top:6px;text-align:center;color:var(--soft)}
 
   /* O nama */
@@ -203,7 +207,7 @@
     .hero .ph-in,.hero-mini .ph-in{padding:16px}
     .hero-photo .ph-in{padding-left:30%}
 
-    .products,.best,.jam{--gap:20px}
+    .products,.best,.p-line{--gap:20px}
 
     .about-grid{display:block}
     .about p.first{margin-top:20px}
@@ -325,6 +329,15 @@
       <rect x="8" y="20" width="184" height="32" rx="10" fill="#fff" fill-opacity=".45"/>
       <path d="M76 20v-7h48v7" fill="none" stroke="var(--tint)" stroke-width="5"/>
       <rect x="44" y="74" width="112" height="94" rx="12" fill="none" stroke="#2E1508" stroke-opacity=".3" stroke-width="2" stroke-dasharray="6 5"/>
+    </symbol>
+
+    <!-- silueta flašice od 1 kg: belo telo i poklopac sa kljunom, nalepnica dobija boju iz --tint -->
+    <symbol id="bottle" viewBox="0 0 150 200">
+      <path d="M49 46H101C106 53 108 60 107 68C106 77 103 82 104 90C105 99 108 104 108 112V180C108 187 104 192 97 192H53C46 192 42 187 42 180V112C42 104 45 99 46 90C47 82 44 77 43 68C42 60 44 53 49 46Z" fill="#fff" stroke="#E8D3B4" stroke-width="1.5"/>
+      <path d="M42 126H108V180C108 187 104 192 97 192H53C46 192 42 187 42 180Z" fill="var(--tint)"/>
+      <path d="M52 28L53 14Q54 9 59 9H84L101 14L98 21L99 28Z" fill="#fff" stroke="#E8D3B4" stroke-width="1.5" stroke-linejoin="round"/>
+      <rect x="50" y="28" width="50" height="18" rx="3" fill="#fff" stroke="#E8D3B4" stroke-width="1.5"/>
+      <path d="M58 32v10M65 32v10M72 32v10M79 32v10M86 32v10M93 32v10" stroke="#E8D3B4" stroke-width="1"/>
     </symbol>
 
     <!-- punjenje koje curi -->
@@ -548,7 +561,7 @@
 </section>
 
 <!-- ============ MARMELADE ============ -->
-<section class="jam" id="marmelade">
+<section class="p-line" id="marmelade">
   <div class="wrap">
     <h2 class="p-title" data-anim="up">Marmelade</h2>
     <p class="p-lead" data-anim="up" style="--d:.08s">Mešana i kajsija. Kao domaće.</p>
@@ -569,6 +582,85 @@
           <!-- ZAMENI: <img src="slike/marmelada-kajsija.png" alt="Kantica marmelade od kajsije" loading="lazy"> -->
         </div>
         <div class="cap"><h3>Kajsija</h3><p>Za mazanje i punjenje.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GLAZURE, PRELIVI I NADEVI ============ -->
+<section class="p-line" id="glazure">
+  <div class="wrap">
+    <h2 class="p-title" data-anim="up">Glazure, prelivi i nadevi</h2>
+    <div class="pails">
+      <article class="item pail" data-anim="up">
+        <div class="pail-fig" style="--tint:#E3B777">
+          <svg aria-hidden="true"><use href="#pail"/></svg>
+          <b>Fotografija: glazura karamel</b>
+          <!-- ZAMENI: <img src="slike/glazura-karamel.png" alt="Kantica glazure karamel" loading="lazy"> -->
+        </div>
+        <div class="cap"><h3>Glazura karamel</h3><p>Za torte, kolače i krofne.</p></div>
+      </article>
+
+      <article class="item pail" data-anim="up" style="--d:.08s">
+        <div class="pail-fig" style="--tint:#A67C66">
+          <svg aria-hidden="true"><use href="#pail"/></svg>
+          <b>Fotografija: preliv čokolada</b>
+          <!-- ZAMENI: <img src="slike/preliv-cokolada.png" alt="Kantica preliva čokolada" loading="lazy"> -->
+        </div>
+        <div class="cap"><h3>Preliv čokolada</h3><p>Za torte, palačinke i sladoled.</p></div>
+      </article>
+
+      <article class="item pail" data-anim="up" style="--d:.16s">
+        <div class="pail-fig" style="--tint:#FBEBB8">
+          <svg aria-hidden="true"><use href="#pail"/></svg>
+          <b>Fotografija: nadev vanila</b>
+          <!-- ZAMENI: <img src="slike/nadev-vanila.png" alt="Kantica nadeva vanila" loading="lazy"> -->
+        </div>
+        <div class="cap"><h3>Nadev vanila</h3><p>Za kolače, krofne i peciva.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOPINZI ============ -->
+<section class="p-line" id="topinzi">
+  <div class="wrap">
+    <h2 class="p-title" data-anim="up">Topinzi</h2>
+    <div class="pails">
+      <article class="item pail" data-anim="up">
+        <div class="pail-fig bottle" style="--tint:#F5B5AE">
+          <svg aria-hidden="true"><use href="#bottle"/></svg>
+          <b>Fotografija: toping jagoda</b>
+          <!-- ZAMENI: <img src="slike/toping-jagoda.png" alt="Flašica topinga jagoda" loading="lazy"> -->
+        </div>
+        <div class="cap"><h3>Toping jagoda</h3><small class="p-pack">pakovanje 1 kg</small><p>Za sladoled, palačinke i torte.</p></div>
+      </article>
+
+      <article class="item pail" data-anim="up" style="--d:.08s">
+        <div class="pail-fig bottle" style="--tint:#C7A48E">
+          <svg aria-hidden="true"><use href="#bottle"/></svg>
+          <b>Fotografija: toping čokolada</b>
+          <!-- ZAMENI: <img src="slike/toping-cokolada.png" alt="Flašica topinga čokolada" loading="lazy"> -->
+        </div>
+        <div class="cap"><h3>Toping čokolada</h3><small class="p-pack">pakovanje 1 kg</small><p>Za sladoled, palačinke i krofne.</p></div>
+      </article>
+
+      <article class="item pail" data-anim="up" style="--d:.16s">
+        <div class="pail-fig bottle" style="--tint:#FBEBB8">
+          <svg aria-hidden="true"><use href="#bottle"/></svg>
+          <b>Fotografija: toping vanila</b>
+          <!-- ZAMENI: <img src="slike/toping-vanila.png" alt="Flašica topinga vanila" loading="lazy"> -->
+        </div>
+        <div class="cap"><h3>Toping vanila</h3><small class="p-pack">pakovanje 1 kg</small><p>Za kolače, palačinke i sladoled.</p></div>
+      </article>
+
+      <article class="item pail" data-anim="up" style="--d:.24s">
+        <div class="pail-fig bottle" style="--tint:#CDBBD6">
+          <svg aria-hidden="true"><use href="#bottle"/></svg>
+          <b>Fotografija: toping šumsko voće</b>
+          <!-- ZAMENI: <img src="slike/toping-sumsko-voce.png" alt="Flašica topinga šumsko voće" loading="lazy"> -->
+        </div>
+        <div class="cap"><h3>Toping šumsko voće</h3><small class="p-pack">pakovanje 1 kg</small><p>Za sladoled, torte i palačinke.</p></div>
       </article>
     </div>
   </div>
