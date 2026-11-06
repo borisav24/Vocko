@@ -17,6 +17,7 @@
     --orange:#F7941D; --yellow:#FFC814; --red:#CF2B38;
     --ink:#2E1508; --soft:#6B4A35; --paper:#FBF1DF; --line:#E8D3B4;
     --head:#7B4A2D; --text:#5C3A24; /* čokoladni tekst na krem pozadini; --ink ostaje za dugmad, footer i obojene pozadine */
+    --ink-hero:#6B3E26; --text-hero:#5A3923; /* hero i meni; --text-hero je za nijansu tamniji od --text zbog kontrasta 4.5:1 na narandžastoj */
     --pad:clamp(20px,4vw,48px);
     --max:1280px;
     --ease:cubic-bezier(.22,.61,.36,1);
@@ -64,7 +65,7 @@
   .logo svg{height:62px;width:auto;display:block}
   header.solid .logo svg{height:54px}
   nav{display:flex;align-items:center;gap:clamp(20px,3vw,40px)}
-  nav a{position:relative;text-decoration:none;font-weight:700;padding:4px 0}
+  nav a{position:relative;color:var(--ink-hero);text-decoration:none;font-weight:700;padding:4px 0}
   .burger{display:none;width:44px;height:44px;background:none;border:0;cursor:pointer;color:var(--ink)}
   .burger span{position:absolute;left:9px;width:26px;height:3px;background:currentColor;border-radius:3px;transition:transform .3s var(--ease),top .3s var(--ease)}
   .burger span:nth-child(1){top:15px}
@@ -73,7 +74,9 @@
   .burger[aria-expanded=true] span:nth-child(2){top:20px;width:26px;transform:rotate(-45deg)}
 
   /* Hero: fotografija ide do desne ivice ekrana */
-  .hero{position:relative;z-index:3;background:var(--orange)}
+  .hero{position:relative;z-index:3;background:var(--orange);color:var(--ink-hero)}
+  .lead,.hero .tlink,.hero-note{color:var(--text-hero)}
+  .hero .btn{background:var(--text)}
   .hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);min-height:min(100svh,920px);padding-left:max(var(--pad),calc((100vw - var(--max))/2 + var(--pad)))}
   .hero-text{align-self:center;padding:120px 40px 90px 0;position:relative;z-index:2}
   h1{position:relative;display:inline-block;font-size:clamp(3.5rem,9vw,8.4rem);line-height:1}
