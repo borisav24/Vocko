@@ -125,11 +125,10 @@
 
   /* O nama */
   .about{padding-block:clamp(170px,17vw,270px) clamp(80px,10vw,150px)}
-  .about-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(30px,6vw,88px);align-items:center;padding-right:max(var(--pad),calc((100vw - var(--max))/2 + var(--pad)))}
-  .about-photo{aspect-ratio:4/3;border-radius:0 220px 0 0;--tint:#FFD98A}
-  .about h2{font-size:clamp(2.3rem,4.5vw,3.9rem)}
-  .about p{margin-top:20px;color:var(--soft)}
-  .about p.first{color:var(--ink);font-size:1.15em}
+  .about-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-rows:auto 1fr;column-gap:clamp(30px,6vw,88px)}
+  .about h2{grid-row:1/3;font-size:clamp(2.3rem,4.5vw,3.9rem)}
+  .about p{grid-column:2;margin-top:20px;color:var(--soft)}
+  .about p.first{margin-top:0;color:var(--ink);font-size:1.15em}
 
   /* Kontakt */
   .contact{background:var(--yellow);padding-block:clamp(70px,10vw,140px)}
@@ -144,6 +143,10 @@
   .c-list div{display:grid;grid-template-columns:minmax(0,5.6em) minmax(0,1fr);gap:12px;padding-block:13px;border-top:2px solid var(--ink)}
   .c-list div:last-child{border-bottom:2px solid var(--ink)}
   .c-list dt{font-weight:700}
+  /* Cela kartica je klikabilna: ::before razvlači link preko celog reda */
+  .c-list .c-link{position:relative}
+  .c-link a{text-decoration:underline 2px transparent;text-underline-offset:3px;transition:text-decoration-color .3s}
+  .c-link a::before{content:"";position:absolute;inset:0}
 
   /* Podnožje */
   footer{background:var(--ink);color:#E9D7C4;padding-block:clamp(40px,5vw,64px) 28px;font-size:1.02rem}
@@ -157,6 +160,7 @@
     .jam .btn:hover,.contact .btn:hover{background:var(--soft)}
     nav a:hover::after{transform:scaleX(1);transform-origin:left}
     .tlink:hover::after{animation:redraw .55s var(--ease)}
+    .c-link:hover a{text-decoration-color:currentColor}
     .item:hover .ph-in{transform:scale(1.05)}
     .item:hover h3::after{transform:scaleX(1)}
   }
@@ -202,9 +206,8 @@
     .j1{grid-column:1/6;margin-bottom:36px}
     .j2{grid-column:2/7;margin-bottom:-70px}
 
-    .about-grid{grid-template-columns:1fr;padding-right:0}
-    .about-photo{margin-right:12vw;border-radius:0 130px 0 0}
-    .about-text{padding-inline:var(--pad)}
+    .about-grid{display:block}
+    .about p.first{margin-top:20px}
 
     .c-grid{display:block}
     .c-side{margin-top:40px}
@@ -515,19 +518,10 @@
 
 <!-- ============ O NAMA ============ -->
 <section class="about" id="o-nama">
-  <div class="about-grid">
-    <div class="ph about-photo" data-anim="wipe" role="img" aria-label="Mesto za fotografiju firme">
-      <div class="ph-in">
-        <svg aria-hidden="true"><use href="#jar"/></svg>
-        <b>Fotografija: kombi ili proizvodnja</b><small>4:3, 1800×1350 px</small>
-        <!-- ZAMENI: <img src="slike/o-nama.jpg" alt="Voćko kombi ispred proizvodnje u Popučkama" loading="lazy"> -->
-      </div>
-    </div>
-    <div class="about-text">
-      <h2 data-anim="up">Dobar proizvod počinje od dobrog voća.</h2>
-      <p class="first" data-anim="up" style="--d:.1s">Voćko je porodična firma iz Valjeva. U Popučkama pravimo voćna punjenja i marmelade više od 20 godina.</p>
-      <p data-anim="up" style="--d:.18s">Sirovine biramo pažljivo i držimo isti kvalitet u svakoj isporuci. Isporučujemo na vreme i u dogovorenoj količini, a sa partnerima širom Srbije radimo godinama.</p>
-    </div>
+  <div class="wrap about-grid">
+    <h2 data-anim="up">Dobar proizvod počinje od dobrog voća.</h2>
+    <p class="first" data-anim="up" style="--d:.1s">Voćko je porodična firma iz Valjeva. U Popučkama pravimo voćna punjenja i marmelade više od 20 godina.</p>
+    <p data-anim="up" style="--d:.18s">Sirovine biramo pažljivo i držimo isti kvalitet u svakoj isporuci. Isporučujemo na vreme i u dogovorenoj količini, a sa partnerima širom Srbije radimo godinama.</p>
   </div>
 </section>
 
@@ -542,10 +536,10 @@
     <div class="c-side" data-anim="side" style="--d:.2s">
       <dl class="c-list">
         <div><dt>Telefon</dt><dd>uskoro</dd></div><!-- ZAMENI: <dd><a href="tel:+38114XXXXXX">014 / XXX-XXX</a></dd> -->
-        <div><dt>Adresa</dt><dd>Popučke bb<br>14000 Valjevo</dd></div>
+        <div class="c-link"><dt>Adresa</dt><dd><a href="https://maps.app.goo.gl/WTud3pJyKygAMXbx6" target="_blank" rel="noopener">Popučke bb<br>14000 Valjevo</a></dd></div>
         <div><dt>Radno vreme</dt><dd>09:00 – 17:00</dd></div>
       </dl>
-      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Popu%C4%8Dke%2C+Valjevo" target="_blank" rel="noopener">Otvori na mapi</a>
+      <a class="btn" href="https://maps.app.goo.gl/WTud3pJyKygAMXbx6" target="_blank" rel="noopener">Otvori na mapi</a>
     </div>
   </div>
 </section>
