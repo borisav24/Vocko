@@ -156,6 +156,27 @@
   .quote::before{content:"„";display:block;height:.55em;margin-bottom:12px;font-family:var(--serif);font-size:clamp(4.5rem,7vw,6.5rem);line-height:0;color:var(--orange)}
   .quote blockquote{font-size:1.15em}
   .quote figcaption{margin-top:16px;font-weight:700;color:var(--head)}
+  .quotes [hidden]{display:none}
+
+  /* Forma za utisak */
+  .quote-grid:has(.quote:not([hidden]))+.q-form{margin-top:clamp(60px,8vw,110px)}
+  .q-form{max-width:760px;margin-inline:auto}
+  .q-form h2{text-align:center}
+  .q-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px clamp(16px,3vw,28px);margin-top:clamp(28px,4vw,44px)}
+  .q-wide{grid-column:1/-1}
+  .q-field label{display:block;margin-bottom:6px;font-weight:700;color:var(--head)}
+  .q-field input,.q-field textarea{display:block;width:100%;min-height:50px;padding:.55em .8em;font:inherit;color:var(--text);background:#FFFDF8;border:2px solid var(--line);border-radius:14px}
+  .q-field textarea{resize:vertical}
+  .q-field input:focus,.q-field textarea:focus{border-color:var(--orange)}
+  .q-field small,.q-note{display:block;margin-top:4px;font-size:.85em}
+  .q-count{text-align:right}
+  .q-check{display:flex;align-items:flex-start;gap:12px;margin:20px 0 24px;cursor:pointer}
+  .q-check input{flex:none;width:24px;height:24px;margin-top:2px;accent-color:var(--ink-hero)}
+  .q-form .btn{border:0;font:inherit;font-weight:700;cursor:pointer}
+  .q-form .btn:disabled{opacity:.6;cursor:default;pointer-events:none}
+  .q-note{margin-top:12px}
+  .q-status:not(:empty){margin-top:16px;padding:.7em 1em;font-weight:700;background:rgba(255,200,20,.16);border:2px solid var(--line);border-radius:14px}
+
 
   /* Kontakt */
   .contact{background:var(--yellow);padding-block:clamp(70px,10vw,140px)}
@@ -281,6 +302,7 @@
     .p-head .p-offer{flex-basis:100%}
 
     .quote-grid{grid-template-columns:1fr}
+    .q-fields{grid-template-columns:minmax(0,1fr)}
 
     .about-grid{display:block}
     .about p.first{margin-top:20px}
@@ -745,30 +767,71 @@
 </section>
 
 <!-- ============ UTISCI ============ -->
-<!-- Kad ubaciš prave utiske, obriši atribut hidden -->
-<section class="quotes" id="utisci" hidden>
+<section class="quotes" id="utisci">
   <div class="wrap">
-    <div class="p-head">
+    <!-- Uz prve prave utiske ukloni hidden i sa ovog naslova -->
+    <div class="p-head" hidden>
       <h2 class="p-title" data-anim="up">Više od 20 godina pravimo punjenja na koja se naši partneri oslanjaju svakog dana.</h2>
       <div data-anim="up" style="--d:.1s"><a href="#kontakt" class="btn">Kontaktirajte nas</a></div>
     </div>
     <div class="quote-grid">
-      <figure class="quote" data-anim="up">
-        <!-- ZAMENI: pravi utisak -->
+      <figure class="quote" data-anim="up" hidden>
+        <!-- ZAMENI: pravi utisak, pa ukloni hidden -->
         <blockquote>[Ovde ide utisak partnera]</blockquote>
         <figcaption>[Ime Prezime, Naziv radnje, Grad]</figcaption>
       </figure>
-      <figure class="quote" data-anim="up" style="--d:.08s">
-        <!-- ZAMENI: pravi utisak -->
+      <figure class="quote" data-anim="up" style="--d:.08s" hidden>
+        <!-- ZAMENI: pravi utisak, pa ukloni hidden -->
         <blockquote>[Ovde ide utisak partnera]</blockquote>
         <figcaption>[Ime Prezime, Naziv radnje, Grad]</figcaption>
       </figure>
-      <figure class="quote" data-anim="up" style="--d:.16s">
-        <!-- ZAMENI: pravi utisak -->
+      <figure class="quote" data-anim="up" style="--d:.16s" hidden>
+        <!-- ZAMENI: pravi utisak, pa ukloni hidden -->
         <blockquote>[Ovde ide utisak partnera]</blockquote>
         <figcaption>[Ime Prezime, Naziv radnje, Grad]</figcaption>
       </figure>
     </div>
+
+    <form class="q-form" id="utisak-forma" action="https://api.web3forms.com/submit" method="POST" data-anim="up">
+      <h2 class="p-title">Sarađujete sa nama? Ostavite utisak.</h2>
+      <input type="hidden" name="access_key" value="3a7d3748-09f6-4f1f-84ac-5bd2f9bc20ad">
+      <input type="hidden" name="subject" value="Novi utisak sa sajta Voćko">
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+
+      <div class="q-fields">
+        <div class="q-field">
+          <label for="q-ime">Ime i prezime</label>
+          <input id="q-ime" name="Ime i prezime" type="text" autocomplete="name" pattern=".*\S.*" required>
+        </div>
+        <div class="q-field">
+          <label for="q-radnja">Naziv radnje</label>
+          <input id="q-radnja" name="Naziv radnje" type="text" autocomplete="organization" pattern=".*\S.*" required>
+        </div>
+        <div class="q-field">
+          <label for="q-grad">Grad</label>
+          <input id="q-grad" name="Grad" type="text" autocomplete="address-level2" pattern=".*\S.*" required>
+        </div>
+        <div class="q-field">
+          <label for="q-email">Email</label>
+          <input id="q-email" name="email" type="email" autocomplete="email" aria-describedby="q-email-napomena" required>
+          <small id="q-email-napomena">Ne objavljuje se, služi samo za proveru.</small>
+        </div>
+        <div class="q-field q-wide">
+          <label for="q-utisak">Vaš utisak</label>
+          <textarea id="q-utisak" name="Utisak" rows="5" maxlength="400" aria-describedby="q-brojac" required></textarea>
+          <small id="q-brojac" class="q-count">0 / 400</small>
+        </div>
+      </div>
+
+      <label class="q-check">
+        <input type="checkbox" name="Saglasnost za objavu" value="Da" required>
+        <span>Saglasan/na sam da se moj utisak, ime, naziv radnje i grad objave na sajtu Voćko d.o.o.</span>
+      </label>
+
+      <button class="btn" type="submit">Pošalji utisak</button>
+      <small class="q-note">Utisci se objavljuju nakon provere.</small>
+      <p class="q-status" role="status"></p>
+    </form>
   </div>
 </section>
 
@@ -860,6 +923,46 @@
   matchMedia('(min-width: 861px)').addEventListener('change', function (e) { if (e.matches) toggleMenu(false); });
 })();
 </script>
+<script>
+/* Forma za utisak: šalje na Web3Forms bez napuštanja stranice */
+(function () {
+  var form = document.getElementById('utisak-forma');
+  var text = form.querySelector('textarea');
+  var count = form.querySelector('.q-count');
+  var button = form.querySelector('button');
+  var status = form.querySelector('.q-status');
+
+  function onInput() {
+    count.textContent = text.value.length + ' / 400';
+    text.setCustomValidity(text.value && !text.value.trim() ? 'Napišite vaš utisak.' : '');
+  }
+  text.addEventListener('input', onInput);
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    status.textContent = '';
+    button.disabled = true;
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      signal: AbortSignal.timeout(20000)
+    }).then(function (r) {
+      return r.json();
+    }).then(function (d) {
+      if (!d.success) throw new Error(d.message);
+      form.reset();
+      onInput();
+      status.textContent = 'Hvala! Vaš utisak je stigao i biće objavljen nakon provere.';
+    }).catch(function () {
+      status.textContent = 'Slanje nije uspelo. Pišite nam na vockodoo@gmail.com.';
+    }).finally(function () {
+      button.disabled = false;
+    });
+  });
+})();
+</script>
+
 <!-- ============ DETALJAN PRIKAZ PROIZVODA ============ -->
 <div id="proizvod" class="pd" role="dialog" aria-modal="true" aria-labelledby="pd-title" hidden></div>
 
