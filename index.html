@@ -356,6 +356,15 @@
   @keyframes drip-down{from{transform:scaleY(0)}to{transform:none}}
   @keyframes breathe{from{transform:scale(1)}to{transform:scale(1.07)}}
 
+  /* Uvodni ekran: voće pada 0–.59s, logo odskoči .42–.74s, ekran se otvara .76–1.12s */
+  .splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--orange);cursor:pointer;animation:splash-open .36s cubic-bezier(.22,1,.36,1) .76s both}
+  .splash-logo{width:min(72vw,520px);height:auto;overflow:visible;animation:splash-pop .32s cubic-bezier(.22,1,.36,1) .42s both}
+  .splash-fruit{animation:splash-fall .45s cubic-bezier(.34,1.56,.64,1) var(--d,0s) both}
+  html.splash-hold .hero,html.splash-hold .hero *{animation-play-state:paused!important}
+  @keyframes splash-fall{from{opacity:0;transform:translateY(-260px)}20%{opacity:1}to{opacity:1;transform:none}}
+  @keyframes splash-pop{from{transform:scale(.9)}60%{transform:scale(1.05)}to{transform:none}}
+  @keyframes splash-open{to{transform:translateY(-100%)}}
+
   @media print{
     .js [data-anim]{opacity:1!important;transform:none!important;clip-path:none!important}
     .pail .cap p{opacity:1!important;translate:none!important}
@@ -441,12 +450,17 @@
     </symbol>
 
     <!-- LOGO -->
-    <symbol id="logo" viewBox="0 0 330 130">
+    <!-- delovi logoa: uvodni ekran ih animira posebno -->
+    <g id="logo-blueberries">
       <use href="#blueberries" x="2" y="6" width="56" height="34"/>
-      <use href="#strawberry" x="246" y="0" width="54" height="60"/>
-      <use href="#raspberry" x="208" y="2" width="40" height="40"/>
       <use href="#leaf" x="46" y="8" width="38" height="19" transform="rotate(-18 65 18)"/>
+    </g>
+    <g id="logo-strawberry">
+      <use href="#strawberry" x="246" y="0" width="54" height="60"/>
       <use href="#leaf" x="286" y="38" width="34" height="17" transform="rotate(30 303 46)"/>
+    </g>
+    <use id="logo-raspberry" href="#raspberry" x="208" y="2" width="40" height="40"/>
+    <g id="logo-word">
       <text x="8" y="100" font-family="Nunito,Arial Black,sans-serif" font-weight="800" font-size="84" letter-spacing="1"
             fill="url(#gTxt)" stroke="#fff" stroke-width="14" stroke-linejoin="round" paint-order="stroke" style="filter:drop-shadow(0 3px 0 #C25A0A)">VOĆKO</text>
       <text x="8" y="100" font-family="Nunito,Arial Black,sans-serif" font-weight="800" font-size="84" letter-spacing="1"
@@ -454,9 +468,54 @@
       <text x="236" y="124" font-family="Nunito,Arial Black,sans-serif" font-weight="800" font-size="30"
             fill="#E63946" stroke="#fff" stroke-width="6" stroke-linejoin="round" paint-order="stroke">014</text>
       <text x="291" y="124" font-family="Nunito,sans-serif" font-weight="700" font-size="15" fill="#E63946" stroke="#fff" stroke-width="4" paint-order="stroke">d.o.o.</text>
+        </g>
+
+    <symbol id="logo" viewBox="0 0 330 130">
+      <use href="#logo-blueberries"/>
+      <use href="#logo-strawberry"/>
+      <use href="#logo-raspberry"/>
+      <use href="#logo-word"/>
     </symbol>
   </defs>
 </svg>
+
+<!-- ============ UVODNI EKRAN ============
+     Ceo uvodni ekran nastaje u ovoj skripti, pa ga bez JavaScripta nema.
+     Da ga isključiš: SPLASH = true promeni u SPLASH = false. -->
+<script>
+(function () {
+  var SPLASH = true;
+  var root = document.documentElement;
+  if (!SPLASH || location.hash || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var el = document.createElement('div');
+  el.className = 'splash';
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = '<svg class="splash-logo" viewBox="0 0 330 130">' +
+    '<use class="splash-fruit" href="#logo-blueberries"/>' +
+    '<use class="splash-fruit" style="--d:.07s" href="#logo-strawberry"/>' +
+    '<use class="splash-fruit" style="--d:.14s" href="#logo-raspberry"/>' +
+    '<use href="#logo-word"/></svg>';
+  document.currentScript.after(el);
+  root.classList.add('noscroll', 'splash-hold');
+
+  function done() {
+    el.remove();
+    root.classList.remove('noscroll', 'splash-hold');
+    removeEventListener('keydown', onKey);
+    clearTimeout(timer);
+  }
+  function onKey(e) {
+    if (/^( |Arrow|Page|Home|End)/.test(e.key)) e.preventDefault();
+    done();
+  }
+  var timer = setTimeout(done, 1190);
+  el.addEventListener('click', done);
+  addEventListener('keydown', onKey);
+  el.addEventListener('animationstart', function (e) { if (e.target === el) root.classList.remove('splash-hold'); });
+  el.addEventListener('animationend', function (e) { if (e.target === el) done(); });
+})();
+</script>
 
 <!-- ============ MENI ============ -->
 <header id="top">
