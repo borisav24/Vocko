@@ -29,8 +29,8 @@
   html.noscroll{overflow:hidden}
   body{font-family:'Alegreya Sans',system-ui,sans-serif;font-size:clamp(1.125rem,1.05rem + .3vw,1.3rem);line-height:1.5;color:var(--ink);background:var(--paper)}
   h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.04;letter-spacing:-.01em}
-  .products,.best,.p-line,.about,.quotes{color:var(--text)}
-  :is(.products,.best,.p-line,.about,.quotes) :is(h2,h3){color:var(--head)}
+  .products,.best,.p-line,.about,.quotes,.pd{color:var(--text)}
+  :is(.products,.best,.p-line,.about,.quotes,.pd) :is(h2,h3){color:var(--head)}
   a{color:inherit}
   :focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   section{scroll-margin-top:84px}
@@ -76,7 +76,7 @@
   /* Hero: fotografija ide do desne ivice ekrana */
   .hero{position:relative;z-index:3;background:var(--orange);color:var(--ink-hero)}
   .lead,.hero-note{color:var(--text-hero)}
-  .hero .btn,.quotes .btn{background:var(--ink-hero)}
+  .hero .btn,.quotes .btn,.pd .btn{background:var(--ink-hero)}
   .hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);min-height:min(100svh,920px);padding-left:max(var(--pad),calc((100vw - var(--max))/2 + var(--pad)))}
   .hero-text{align-self:center;padding:120px 40px 90px 0;position:relative;z-index:2}
   h1{position:relative;display:inline-block;font-size:clamp(3.5rem,9vw,8.4rem);line-height:1}
@@ -98,7 +98,7 @@
   .hero .drip{fill:var(--orange)}
 
   /* Proizvodi */
-  .products,.best,.p-line{--gap:clamp(28px,5vw,72px)}
+  .products,.best,.p-line,.pd{--gap:clamp(28px,5vw,72px)}
   .products{padding-block:clamp(150px,16vw,250px) clamp(60px,7vw,100px)}
   .p-title{font-family:'Alegreya Sans',system-ui,sans-serif;font-weight:300;font-size:clamp(2.7rem,5.4vw,4.8rem);letter-spacing:0}
   .p-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 32px;margin-bottom:clamp(44px,6vw,84px)}
@@ -109,7 +109,8 @@
   /* Kantice: flex centrira i nepun poslednji red */
   .pails{--n:4;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(44px,6vw,84px) var(--gap);scroll-margin-top:84px}
   .pails .pail{flex:0 0 calc((100% - (var(--n) - 1)*var(--gap))/var(--n));min-width:0}
-  .pail{text-align:center}
+  .pail{position:relative;text-align:center}
+  .pail-link{position:absolute;inset:0;z-index:1;border-radius:14px}
   .item.pail h3{font-size:clamp(1.2rem,.8rem + 1vw,1.75rem);text-wrap:balance}
   .pail-fig{position:relative;display:grid;place-items:center;width:min(88%,250px);aspect-ratio:1;margin-inline:auto;color:var(--ink)}
   .pail-fig>*{grid-area:1/1}
@@ -122,7 +123,7 @@
   .pail-fig:has(img) svg,.pail-fig:has(img) b{display:none}
   .item h3{display:inline-block;position:relative;font-size:clamp(1.55rem,2.3vw,2.1rem);padding-bottom:6px}
   /* boja talasa dolazi iz --accent na .item, a oblik iz maske */
-  .item h3::after{--wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c20-4 38 2 58 0s40-3 58 0' fill='none' stroke='%23CF2B38' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");content:"";position:absolute;left:0;right:0;bottom:-3px;height:8px;background-color:var(--accent,#CF2B38);-webkit-mask-image:var(--wave);mask-image:var(--wave);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+  .item h3::after,.pd-title::after{--wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c20-4 38 2 58 0s40-3 58 0' fill='none' stroke='%23CF2B38' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");content:"";position:absolute;left:0;right:0;bottom:-3px;height:8px;background-color:var(--accent,#CF2B38);-webkit-mask-image:var(--wave);mask-image:var(--wave);-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
   .item .cap{margin-top:16px}
   .item .cap p{margin-top:4px}
   .p-group{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:var(--gap);align-items:center;margin-top:clamp(52px,7vw,96px);padding-top:clamp(36px,4vw,56px);border-top:2px solid var(--line)}
@@ -174,6 +175,49 @@
   .c-link a{text-decoration:underline 2px transparent;text-underline-offset:3px;transition:text-decoration-color .3s}
   .c-link a::before{content:"";position:absolute;inset:0}
 
+  /* Detaljan prikaz proizvoda */
+  .pd{position:fixed;inset:0;z-index:60;overflow-y:auto;overscroll-behavior:contain;background:var(--paper)}
+  .pd-wrap{padding-block:clamp(24px,3vw,40px) clamp(70px,9vw,120px)}
+  .pd-back{background:none;border:0;font:inherit;font-weight:700;color:inherit;cursor:pointer}
+  .pd-main{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,5vw,72px);align-items:center;margin-top:clamp(24px,3vw,40px)}
+  .pd .pd-main .pail-fig{width:min(100%,460px)}
+  .pd-main .pail-fig b{font-size:clamp(.95rem,.8rem + .5vw,1.2rem);text-align:center}
+  .pd-title{display:inline-block;position:relative;padding-bottom:.2em;font-size:clamp(2.5rem,5vw,4.4rem)}
+  .pd-title:focus{outline:none}
+  .pd-title::after{bottom:-6px;height:12px;transform:none;transition:none}
+  .pd-text{margin-top:clamp(22px,2.5vw,32px)}
+  .pd-list{margin:18px 0 26px;list-style:none}
+  .pd-list li{position:relative;padding:8px 0 8px 1.7em;border-top:2px solid var(--line)}
+  .pd-list li:last-child{border-bottom:2px solid var(--line)}
+  .pd-list li::before{content:"✓";position:absolute;left:0;font-weight:700;color:var(--accent)}
+  .pd-list b{color:var(--head)}
+  .pd-more{margin-top:clamp(60px,8vw,110px);padding-top:clamp(36px,4vw,56px);border-top:2px solid var(--line)}
+  .pd-more h3{text-align:center;font-size:clamp(2rem,3.6vw,3.2rem)}
+  .pd .pails{--n:3;max-width:960px;margin:clamp(32px,4vw,56px) auto 0}
+
+  /* Prelaz: kantica i naziv prelaze iz palete u prikaz, ostatak se pojavljuje blagim pomeranjem naviše */
+  .vt-src .pail-fig,.pd:not(.noname) .pd-main .pail-fig{view-transition-name:pd-img}
+  .vt-src h3,.pd:not(.noname) .pd-title{view-transition-name:pd-title}
+  .pd:not(.noname) .pd-text{view-transition-name:pd-body}
+  .pd:not(.noname) .pd-more{view-transition-name:pd-more}
+  ::view-transition-group(pd-img),::view-transition-group(pd-title){animation-duration:.45s;animation-timing-function:var(--ease)}
+  ::view-transition-old(root),::view-transition-new(root){animation-duration:.3s}
+  ::view-transition-new(pd-body),::view-transition-new(pd-more){animation:pd-rise .4s var(--ease) .1s both}
+  ::view-transition-old(pd-body),::view-transition-old(pd-more){animation:pd-rise .25s ease reverse both}
+  @keyframes pd-rise{from{opacity:0;translate:0 18px}}
+
+  /* Kad nema View Transitions: fade + scale. Uz smanjene animacije: samo kratak fade. */
+  html:not(.has-vt) .pd{animation:pd-pop .3s var(--ease)}
+  html:not(.has-vt) .pd.is-out{animation:pd-pop-out .2s ease both}
+  @media (prefers-reduced-motion:reduce){
+    html:not(.has-vt) .pd{animation:pd-fade .15s ease}
+    html:not(.has-vt) .pd.is-out{animation:pd-fade-out .15s ease both}
+  }
+  @keyframes pd-pop{from{opacity:0;scale:.96}}
+  @keyframes pd-pop-out{to{opacity:0;scale:.96}}
+  @keyframes pd-fade{from{opacity:0}}
+  @keyframes pd-fade-out{to{opacity:0}}
+
   /* Podnožje */
   footer{background:var(--ink);color:#E9D7C4;padding-block:clamp(40px,5vw,64px) 28px;font-size:1.02rem}
   footer .wrap{display:grid;grid-template-columns:auto 1fr;gap:18px 40px;align-items:center}
@@ -183,7 +227,7 @@
   /* Hover samo tamo gde postoji miš */
   @media (hover:hover){
     .btn:hover{transform:translateY(-3px) rotate(-1deg);background:var(--red)}
-    .hero .btn:hover,.quotes .btn:hover{background:color-mix(in srgb,var(--ink-hero) 90%,#000)}
+    .hero .btn:hover,.quotes .btn:hover,.pd .btn:hover{background:color-mix(in srgb,var(--ink-hero) 90%,#000)}
     .contact .btn:hover{background:var(--soft)}
     nav a:hover::after{transform:scaleX(1);transform-origin:left}
     .tlink:hover::after{animation:redraw .55s var(--ease)}
@@ -226,7 +270,9 @@
     .hero-mini .ph{border-width:6px}
     .hero-note{left:-14vw;bottom:-30px;font-size:1.45rem}
 
-    .products,.best,.p-line{--gap:20px}
+    .products,.best,.p-line,.pd{--gap:20px}
+    .pd-main{grid-template-columns:minmax(0,1fr)}
+    .pd .pails{--n:2}
     .p-head .p-offer{flex-basis:100%}
 
     .quote-grid{grid-template-columns:1fr}
@@ -446,7 +492,7 @@
     </div>
 
     <div class="pails" id="lista-proizvoda">
-      <article class="item pail" data-anim="up" style="--accent:#C62828">
+      <article class="item pail" data-id="jabuka-mlevena" data-anim="up" style="--accent:#C62828">
         <div class="pail-fig" style="--tint:#F8D0C2">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: jabuka mlevena</b>
@@ -455,7 +501,7 @@
         <div class="cap"><h3>Jabuka mlevena</h3><small class="p-pack">pakovanje 6 kg</small><p>Ovo glatko punjenje koristi se za štrudle, pite i kolače.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#8E1B2C;--d:.08s">
+      <article class="item pail" data-id="visnja" data-anim="up" style="--accent:#8E1B2C;--d:.08s">
         <div class="pail-fig" style="--tint:#F2B8BC">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: višnja</b>
@@ -464,7 +510,7 @@
         <div class="cap"><h3>Višnja</h3><small class="p-pack">pakovanje 6 kg</small><p>Punjenje od višnje koristi se za pite, štrudle i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#B71C1C;--d:.16s">
+      <article class="item pail" data-id="jabuka-kocka" data-anim="up" style="--accent:#B71C1C;--d:.16s">
         <div class="pail-fig" style="--tint:#FBE7A6">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: jabuka kocka</b>
@@ -473,7 +519,7 @@
         <div class="cap"><h3>Jabuka kocka</h3><small class="p-pack">pakovanje 6 kg</small><p>Punjenje sa komadićima jabuke koristi se za pite i štrudle.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#D7263D;--d:.24s">
+      <article class="item pail" data-id="jagoda" data-anim="up" style="--accent:#D7263D;--d:.24s">
         <div class="pail-fig" style="--tint:#F5B5AE">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: jagoda</b>
@@ -482,7 +528,7 @@
         <div class="cap"><h3>Jagoda</h3><small class="p-pack">pakovanje 6 kg</small><p>Punjenje od jagode koristi se za krofne, kroasane i kolače.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#C2185B">
+      <article class="item pail" data-id="malina" data-anim="up" style="--accent:#C2185B">
         <div class="pail-fig" style="--tint:#F4B3C3">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: malina</b>
@@ -491,7 +537,7 @@
         <div class="cap"><h3>Malina</h3><small class="p-pack">pakovanje 6 kg</small><p>Punjenje od maline koristi se za kolače, krofne i kroasane.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#5E2B6E;--d:.08s">
+      <article class="item pail" data-id="sumsko-voce" data-anim="up" style="--accent:#5E2B6E;--d:.08s">
         <div class="pail-fig" style="--tint:#CDBBD6">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: šumsko voće</b>
@@ -500,7 +546,7 @@
         <div class="cap"><h3>Šumsko voće</h3><small class="p-pack">pakovanje 6 kg</small><p>Punjenje od šumskog voća koristi se za kolače, pite i kroasane.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#CA7725;--d:.16s">
+      <article class="item pail" data-id="kajsija" data-anim="up" style="--accent:#CA7725;--d:.16s">
         <div class="pail-fig" style="--tint:#FAD79B">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: kajsija</b>
@@ -509,7 +555,7 @@
         <div class="cap"><h3>Kajsija</h3><small class="p-pack">pakovanje 6 kg</small><p>Punjenje od kajsije klasičan je izbor za kroasane i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#DA6E00;--d:.24s">
+      <article class="item pail" data-id="pomorandza" data-anim="up" style="--accent:#DA6E00;--d:.24s">
         <div class="pail-fig" style="--tint:#FBC784">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: pomorandža</b>
@@ -518,7 +564,7 @@
         <div class="cap"><h3>Pomorandža</h3><small class="p-pack">pakovanje 6 kg</small><p>Punjenje od pomorandže daje kolačima i pecivima miris citrusa.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#E8B400">
+      <article class="item pail" data-id="limun" data-anim="up" style="--accent:#E8B400">
         <div class="pail-fig" style="--tint:#FBEE9E">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: limun</b>
@@ -527,7 +573,7 @@
         <div class="cap"><h3>Limun</h3><small class="p-pack">pakovanje 6 kg</small><p>Punjenje od limuna daje kolačima i kroasanima ukus citrusa.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#4A2545;--d:.08s">
+      <article class="item pail" data-id="suva-sljiva" data-anim="up" style="--accent:#4A2545;--d:.08s">
         <div class="pail-fig" style="--tint:#D3B8C4">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: suva šljiva</b>
@@ -539,7 +585,7 @@
 
     <div class="p-group">
       <h3 class="p-sub" data-anim="up">Pekarski nadev</h3>
-      <article class="item pail" data-anim="up" style="--accent:#3E7D3A">
+      <article class="item pail" data-id="spanac" data-anim="up" style="--accent:#3E7D3A">
         <div class="pail-fig" style="--tint:#C9DFB0">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: spanać</b>
@@ -557,7 +603,7 @@
   <div class="wrap">
     <h2 class="p-title" data-anim="up">Najprodavaniji proizvodi</h2>
     <div class="pails">
-      <article class="item pail" data-anim="up" style="--accent:#8E1B2C">
+      <article class="item pail" data-id="visnja" data-anim="up" style="--accent:#8E1B2C">
         <div class="pail-fig" style="--tint:#F2B8BC">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: višnja</b>
@@ -566,7 +612,7 @@
         <div class="cap"><h3>Višnja</h3><small class="p-pack">pakovanje 6 kg</small><p>Punjenje od višnje koristi se za pite, štrudle i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#C62828;--d:.08s">
+      <article class="item pail" data-id="jabuka-mlevena" data-anim="up" style="--accent:#C62828;--d:.08s">
         <div class="pail-fig" style="--tint:#F8D0C2">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: jabuka mlevena</b>
@@ -584,7 +630,7 @@
     <h2 class="p-title" data-anim="up">Marmelade</h2>
     <p class="p-lead" data-anim="up" style="--d:.08s">Pravimo mešanu marmeladu i marmeladu od kajsije, kao domaću.</p>
     <div class="pails">
-      <article class="item pail" data-anim="up" style="--accent:#A0284A">
+      <article class="item pail" data-id="marmelada-mesana" data-anim="up" style="--accent:#A0284A">
         <div class="pail-fig" style="--tint:#DDB6CF">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: marmelada mešana</b>
@@ -593,7 +639,7 @@
         <div class="cap"><h3>Mešana</h3><small class="p-pack">pakovanje 6 kg</small><p>Ova mešavina voća ima tradicionalan domaći ukus.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#CA7725;--d:.08s">
+      <article class="item pail" data-id="marmelada-kajsija" data-anim="up" style="--accent:#CA7725;--d:.08s">
         <div class="pail-fig" style="--tint:#FAD79B">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: marmelada kajsija</b>
@@ -610,7 +656,7 @@
   <div class="wrap">
     <h2 class="p-title" data-anim="up">Glazure, prelivi i nadevi</h2>
     <div class="pails">
-      <article class="item pail" data-anim="up" style="--accent:#B5651D">
+      <article class="item pail" data-id="glazura-karamel" data-anim="up" style="--accent:#B5651D">
         <div class="pail-fig" style="--tint:#E3B777">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: glazura karamel</b>
@@ -619,7 +665,7 @@
         <div class="cap"><h3>Glazura karamel</h3><small class="p-pack">pakovanje 6 kg</small><p>Glazura karamel koristi se za torte, kolače i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#5A3221;--d:.08s">
+      <article class="item pail" data-id="preliv-cokolada" data-anim="up" style="--accent:#5A3221;--d:.08s">
         <div class="pail-fig" style="--tint:#A67C66">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: preliv čokolada</b>
@@ -628,7 +674,7 @@
         <div class="cap"><h3>Preliv čokolada</h3><small class="p-pack">pakovanje 6 kg</small><p>Preliv čokolada koristi se za torte, palačinke i sladoled.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#D4A55A;--d:.16s">
+      <article class="item pail" data-id="nadev-vanila" data-anim="up" style="--accent:#D4A55A;--d:.16s">
         <div class="pail-fig" style="--tint:#FBEBB8">
           <svg aria-hidden="true"><use href="#pail"/></svg>
           <b>Fotografija: nadev vanila</b>
@@ -645,7 +691,7 @@
   <div class="wrap">
     <h2 class="p-title" data-anim="up">Topinzi</h2>
     <div class="pails">
-      <article class="item pail" data-anim="up" style="--accent:#D7263D">
+      <article class="item pail" data-id="toping-jagoda" data-anim="up" style="--accent:#D7263D">
         <div class="pail-fig bottle" style="--tint:#F5B5AE">
           <svg aria-hidden="true"><use href="#bottle"/></svg>
           <b>Fotografija: toping jagoda</b>
@@ -654,7 +700,7 @@
         <div class="cap"><h3>Toping<br>jagoda</h3><small class="p-pack">pakovanje 1 kg</small><p>Toping jagoda koristi se za sladoled, palačinke i torte.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#5A3221;--d:.08s">
+      <article class="item pail" data-id="toping-cokolada" data-anim="up" style="--accent:#5A3221;--d:.08s">
         <div class="pail-fig bottle" style="--tint:#C7A48E">
           <svg aria-hidden="true"><use href="#bottle"/></svg>
           <b>Fotografija: toping čokolada</b>
@@ -663,7 +709,7 @@
         <div class="cap"><h3>Toping<br>čokolada</h3><small class="p-pack">pakovanje 1 kg</small><p>Toping čokolada koristi se za sladoled, palačinke i krofne.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#D4A55A;--d:.16s">
+      <article class="item pail" data-id="toping-vanila" data-anim="up" style="--accent:#D4A55A;--d:.16s">
         <div class="pail-fig bottle" style="--tint:#FBEBB8">
           <svg aria-hidden="true"><use href="#bottle"/></svg>
           <b>Fotografija: toping vanila</b>
@@ -672,7 +718,7 @@
         <div class="cap"><h3>Toping<br>vanila</h3><small class="p-pack">pakovanje 1 kg</small><p>Toping vanila koristi se za kolače, palačinke i sladoled.</p></div>
       </article>
 
-      <article class="item pail" data-anim="up" style="--accent:#5E2B6E;--d:.24s">
+      <article class="item pail" data-id="toping-sumsko-voce" data-anim="up" style="--accent:#5E2B6E;--d:.24s">
         <div class="pail-fig bottle" style="--tint:#CDBBD6">
           <svg aria-hidden="true"><use href="#bottle"/></svg>
           <b>Fotografija: toping šumsko voće</b>
@@ -807,6 +853,413 @@
     if (e.key === 'Escape' && nav.classList.contains('open')) { toggleMenu(false); burger.focus(); }
   });
   matchMedia('(min-width: 861px)').addEventListener('change', function (e) { if (e.matches) toggleMenu(false); });
+})();
+</script>
+<!-- ============ DETALJAN PRIKAZ PROIZVODA ============ -->
+<div id="proizvod" class="pd" role="dialog" aria-modal="true" aria-labelledby="pd-title" hidden></div>
+
+<script>
+/* PODACI O PROIZVODIMA: sve za detaljan prikaz menja se samo ovde.
+
+   Kako se menja:
+   - Tekst: promeni "opis", "osobine" ili "pakovanje" kod tog proizvoda i sačuvaj fajl.
+   - sastav: ostavi "" dok nemaš tačan podatak. Prazno se ne prikazuje, a popunjeno
+     se pojavljuje kao nova stavka u listi sa kvačicama.
+   - drugaPakovanja: prazno znači da se dodatna pakovanja ne prikazuju.
+   - slika: dok fajl ne postoji u folderu slike, prikazuje se silueta u boji "tint".
+     Čim dodaš fajl pod tim imenom, slika se sama pojavljuje ovde.
+   - id je adresa proizvoda (npr. sajt/#visnja), zato ga ne menjaj bez potrebe.
+
+   Paleta na strani je poseban HTML, pa za novi proizvod treba dodati i <article>
+   sa istim data-id, a naziv, accent i kratak opis menjati na oba mesta. */
+var PROIZVODI = [
+  {
+    id: "jabuka-mlevena", naziv: "Jabuka mlevena", grupa: "punjenja",
+    slika: "slike/jabuka-mlevena.png", oblik: "kantica",
+    accent: "#C62828", tint: "#F8D0C2",
+    kratko: "Ovo glatko punjenje koristi se za štrudle, pite i kolače.",
+    opis: "Ovo glatko punjenje koristi se za štrudle, pite i kolače. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Štrudle, pite, kolači" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "visnja", naziv: "Višnja", grupa: "punjenja",
+    slika: "slike/visnja.png", oblik: "kantica",
+    accent: "#8E1B2C", tint: "#F2B8BC",
+    kratko: "Punjenje od višnje koristi se za pite, štrudle i krofne.",
+    opis: "Punjenje od višnje koristi se za pite, štrudle i krofne. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Pite, štrudle, krofne" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "jabuka-kocka", naziv: "Jabuka kocka", grupa: "punjenja",
+    slika: "slike/jabuka-kocka.png", oblik: "kantica",
+    accent: "#B71C1C", tint: "#FBE7A6",
+    kratko: "Punjenje sa komadićima jabuke koristi se za pite i štrudle.",
+    opis: "Punjenje sa komadićima jabuke koristi se za pite i štrudle. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Pite, štrudle" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "jagoda", naziv: "Jagoda", grupa: "punjenja",
+    slika: "slike/jagoda.png", oblik: "kantica",
+    accent: "#D7263D", tint: "#F5B5AE",
+    kratko: "Punjenje od jagode koristi se za krofne, kroasane i kolače.",
+    opis: "Punjenje od jagode koristi se za krofne, kroasane i kolače. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Krofne, kroasani, kolači" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "malina", naziv: "Malina", grupa: "punjenja",
+    slika: "slike/malina.png", oblik: "kantica",
+    accent: "#C2185B", tint: "#F4B3C3",
+    kratko: "Punjenje od maline koristi se za kolače, krofne i kroasane.",
+    opis: "Punjenje od maline koristi se za kolače, krofne i kroasane. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Kolači, krofne, kroasani" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "sumsko-voce", naziv: "Šumsko voće", grupa: "punjenja",
+    slika: "slike/sumsko-voce.png", oblik: "kantica",
+    accent: "#5E2B6E", tint: "#CDBBD6",
+    kratko: "Punjenje od šumskog voća koristi se za kolače, pite i kroasane.",
+    opis: "Punjenje od šumskog voća koristi se za kolače, pite i kroasane. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Kolači, pite, kroasani" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "kajsija", naziv: "Kajsija", grupa: "punjenja",
+    slika: "slike/kajsija.png", oblik: "kantica",
+    accent: "#CA7725", tint: "#FAD79B",
+    kratko: "Punjenje od kajsije klasičan je izbor za kroasane i krofne.",
+    opis: "Punjenje od kajsije klasičan je izbor za kroasane i krofne. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Kroasani, krofne" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "pomorandza", naziv: "Pomorandža", grupa: "punjenja",
+    slika: "slike/pomorandza.png", oblik: "kantica",
+    accent: "#DA6E00", tint: "#FBC784",
+    kratko: "Punjenje od pomorandže daje kolačima i pecivima miris citrusa.",
+    opis: "Punjenje od pomorandže daje kolačima i pecivima miris citrusa. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Kolači, peciva" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "limun", naziv: "Limun", grupa: "punjenja",
+    slika: "slike/limun.png", oblik: "kantica",
+    accent: "#E8B400", tint: "#FBEE9E",
+    kratko: "Punjenje od limuna daje kolačima i kroasanima ukus citrusa.",
+    opis: "Punjenje od limuna daje kolačima i kroasanima ukus citrusa. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Kolači, kroasani" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "suva-sljiva", naziv: "Suva šljiva", grupa: "punjenja",
+    slika: "slike/suva-sljiva.png", oblik: "kantica",
+    accent: "#4A2545", tint: "#D3B8C4",
+    kratko: "Punjenje od suve šljive koristi se za štrudle, pite i pekarske proizvode.",
+    opis: "Punjenje od suve šljive koristi se za štrudle, pite i pekarske proizvode. Kao i sva naša voćna punjenja, ne razliva se pri pečenju. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Voćno punjenje", primena: "Štrudle, pite, pekarski proizvodi" },
+    pakovanje: "6 kg", drugaPakovanja: "3 kg, 18 kg i 20 kg",
+    sastav: ""
+  },
+  {
+    id: "spanac", naziv: "Spanać", grupa: "pekarski",
+    slika: "slike/spanac.png", oblik: "kantica",
+    accent: "#3E7D3A", tint: "#C9DFB0",
+    kratko: "Nadev od spanaća koristi se za slane pite, štrudle i pekarske proizvode.",
+    opis: "Nadev od spanaća koristi se za slane pite, štrudle i pekarske proizvode. Nije voćni proizvod, pa se nudi kao poseban pekarski nadev. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Pekarski nadev", primena: "Slane pite, štrudle, pekarski proizvodi" },
+    pakovanje: "6 kg", drugaPakovanja: "",
+    sastav: ""
+  },
+  {
+    id: "marmelada-mesana", naziv: "Mešana", grupa: "marmelade",
+    slika: "slike/marmelada-mesana.png", oblik: "kantica",
+    accent: "#A0284A", tint: "#DDB6CF",
+    kratko: "Ova mešavina voća ima tradicionalan domaći ukus.",
+    opis: "Ova mešavina voća ima tradicionalan domaći ukus. Pravimo je kao domaću. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Marmelada", primena: "Mazanje, punjenje" },
+    pakovanje: "6 kg", drugaPakovanja: "",
+    sastav: ""
+  },
+  {
+    id: "marmelada-kajsija", naziv: "Kajsija", grupa: "marmelade",
+    slika: "slike/marmelada-kajsija.png", oblik: "kantica",
+    accent: "#CA7725", tint: "#FAD79B",
+    kratko: "Marmelada od kajsije koristi se za mazanje i punjenje.",
+    opis: "Marmelada od kajsije koristi se za mazanje i punjenje. Pravimo je kao domaću. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Marmelada", primena: "Mazanje, punjenje" },
+    pakovanje: "6 kg", drugaPakovanja: "",
+    sastav: ""
+  },
+  {
+    id: "glazura-karamel", naziv: "Glazura karamel", grupa: "glazure",
+    slika: "slike/glazura-karamel.png", oblik: "kantica",
+    accent: "#B5651D", tint: "#E3B777",
+    kratko: "Glazura karamel koristi se za torte, kolače i krofne.",
+    opis: "Glazura karamel koristi se za torte, kolače i krofne. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Glazura", primena: "Torte, kolači, krofne" },
+    pakovanje: "6 kg", drugaPakovanja: "",
+    sastav: ""
+  },
+  {
+    id: "preliv-cokolada", naziv: "Preliv čokolada", grupa: "glazure",
+    slika: "slike/preliv-cokolada.png", oblik: "kantica",
+    accent: "#5A3221", tint: "#A67C66",
+    kratko: "Preliv čokolada koristi se za torte, palačinke i sladoled.",
+    opis: "Preliv čokolada koristi se za torte, palačinke i sladoled. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Preliv", primena: "Torte, palačinke, sladoled" },
+    pakovanje: "6 kg", drugaPakovanja: "",
+    sastav: ""
+  },
+  {
+    id: "nadev-vanila", naziv: "Nadev vanila", grupa: "glazure",
+    slika: "slike/nadev-vanila.png", oblik: "kantica",
+    accent: "#D4A55A", tint: "#FBEBB8",
+    kratko: "Nadev vanila koristi se za kolače, krofne i peciva.",
+    opis: "Nadev vanila koristi se za kolače, krofne i peciva. Pakuje se u kantice od 6 kg.",
+    osobine: { vrsta: "Nadev", primena: "Kolači, krofne, peciva" },
+    pakovanje: "6 kg", drugaPakovanja: "",
+    sastav: ""
+  },
+  {
+    id: "toping-jagoda", naziv: "Toping jagoda", grupa: "topinzi",
+    slika: "slike/toping-jagoda.png", oblik: "flasica",
+    accent: "#D7263D", tint: "#F5B5AE",
+    kratko: "Toping jagoda koristi se za sladoled, palačinke i torte.",
+    opis: "Toping jagoda koristi se za sladoled, palačinke i torte. Pakuje se u plastične flašice od 1 kg.",
+    osobine: { vrsta: "Toping", primena: "Sladoled, palačinke, torte" },
+    pakovanje: "1 kg", drugaPakovanja: "",
+    sastav: ""
+  },
+  {
+    id: "toping-cokolada", naziv: "Toping čokolada", grupa: "topinzi",
+    slika: "slike/toping-cokolada.png", oblik: "flasica",
+    accent: "#5A3221", tint: "#C7A48E",
+    kratko: "Toping čokolada koristi se za sladoled, palačinke i krofne.",
+    opis: "Toping čokolada koristi se za sladoled, palačinke i krofne. Pakuje se u plastične flašice od 1 kg.",
+    osobine: { vrsta: "Toping", primena: "Sladoled, palačinke, krofne" },
+    pakovanje: "1 kg", drugaPakovanja: "",
+    sastav: ""
+  },
+  {
+    id: "toping-vanila", naziv: "Toping vanila", grupa: "topinzi",
+    slika: "slike/toping-vanila.png", oblik: "flasica",
+    accent: "#D4A55A", tint: "#FBEBB8",
+    kratko: "Toping vanila koristi se za kolače, palačinke i sladoled.",
+    opis: "Toping vanila koristi se za kolače, palačinke i sladoled. Pakuje se u plastične flašice od 1 kg.",
+    osobine: { vrsta: "Toping", primena: "Kolači, palačinke, sladoled" },
+    pakovanje: "1 kg", drugaPakovanja: "",
+    sastav: ""
+  },
+  {
+    id: "toping-sumsko-voce", naziv: "Toping šumsko voće", grupa: "topinzi",
+    slika: "slike/toping-sumsko-voce.png", oblik: "flasica",
+    accent: "#5E2B6E", tint: "#CDBBD6",
+    kratko: "Toping šumsko voće koristi se za sladoled, torte i palačinke.",
+    opis: "Toping šumsko voće koristi se za sladoled, torte i palačinke. Pakuje se u plastične flašice od 1 kg.",
+    osobine: { vrsta: "Toping", primena: "Sladoled, torte, palačinke" },
+    pakovanje: "1 kg", drugaPakovanja: "",
+    sastav: ""
+  }
+];
+
+/* Detaljan prikaz: adresa (#id) je jedini izvor stanja, pa klik, link i dugme Nazad rade isto. */
+(function () {
+  var root = document.documentElement;
+  var pd = document.getElementById('proizvod');
+  var page = [document.querySelector('header'), document.querySelector('main'), document.querySelector('footer')];
+  var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var useVT = !!document.startViewTransition && !calm;
+  var title = document.title;
+  var byId = {};
+  var current = null, origin = null, pending = null, jumpTo = null, savedY = 0, depth = 0;
+
+  PROIZVODI.forEach(function (p) { byId[p.id] = p; });
+  root.classList.toggle('has-vt', useVT);
+
+  function addLink(card) {
+    var p = byId[card.dataset.id];
+    if (!p) return;
+    var a = document.createElement('a');
+    a.className = 'pail-link';
+    a.href = '#' + p.id;
+    a.setAttribute('aria-label', 'Detalji o proizvodu: ' + p.naziv);
+    card.appendChild(a);
+  }
+  document.querySelectorAll('.pail[data-id]').forEach(addLink);
+
+  function figure(p) {
+    var flasica = p.oblik === 'flasica';
+    return '<div class="pail-fig' + (flasica ? ' bottle' : '') + '" style="--tint:' + p.tint + '" data-src="' + p.slika + '">' +
+      '<svg aria-hidden="true"><use href="#' + (flasica ? 'bottle' : 'pail') + '"/></svg>' +
+      '<b>Fotografija: ' + p.naziv.toLowerCase() + '</b></div>';
+  }
+
+  /* Slika se dodaje tek kad se učita, pa silueta ostaje ako fajl još ne postoji. */
+  function loadImages() {
+    pd.querySelectorAll('[data-src]').forEach(function (fig) {
+      var p = byId[fig.closest('[data-id]').dataset.id];
+      var img = new Image();
+      img.alt = (p.oblik === 'flasica' ? 'Flašica: ' : 'Kantica: ') + p.naziv;
+      img.onload = function () { if (fig.isConnected) fig.appendChild(img); };
+      img.src = fig.dataset.src;
+    });
+  }
+
+  /* Prvo proizvodi iz iste grupe, redom posle trenutnog, pa dopuna do 3 iz ostatka ponude. */
+  function related(p) {
+    var i = PROIZVODI.indexOf(p);
+    var rest = PROIZVODI.slice(i + 1).concat(PROIZVODI.slice(0, i));
+    return rest.filter(function (x) { return x.grupa === p.grupa; })
+      .concat(rest.filter(function (x) { return x.grupa !== p.grupa; }))
+      .slice(0, 3);
+  }
+
+  function row(label, value) { return '<li><b>' + label + ':</b> ' + value + '</li>'; }
+
+  function render(p) {
+    var pack = p.pakovanje + (p.drugaPakovanja ? '; dostupno i u pakovanjima od ' + p.drugaPakovanja : '');
+    pd.style.setProperty('--accent', p.accent);
+    pd.innerHTML =
+      '<div class="wrap pd-wrap">' +
+        '<button type="button" class="tlink pd-back"><span aria-hidden="true">←</span> Nazad na proizvode</button>' +
+        '<div class="pd-main" data-id="' + p.id + '">' +
+          figure(p) +
+          '<div class="pd-info">' +
+            '<h2 class="pd-title" id="pd-title" tabindex="-1">' + p.naziv + '</h2>' +
+            '<div class="pd-text">' +
+              '<p>' + p.opis + '</p>' +
+              '<ul class="pd-list">' +
+                row('Vrsta proizvoda', p.osobine.vrsta) + row('Primena', p.osobine.primena) + row('Pakovanje', pack) +
+                (p.sastav ? row('Sastav', p.sastav) : '') +
+              '</ul>' +
+              '<a class="btn" href="#kontakt">Pošaljite upit</a>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<section class="pd-more" aria-labelledby="pd-more-title">' +
+          '<h3 class="p-title" id="pd-more-title">Pogledajte još</h3>' +
+          '<div class="pails">' + related(p).map(function (x) {
+            return '<article class="item pail" data-id="' + x.id + '" style="--accent:' + x.accent + '">' + figure(x) +
+              '<div class="cap"><h3>' + x.naziv + '</h3><small class="p-pack">pakovanje ' + x.pakovanje + '</small><p>' + x.kratko + '</p></div></article>';
+          }).join('') + '</div>' +
+        '</section>' +
+      '</div>';
+    pd.querySelectorAll('.pd-more .pail').forEach(addLink);
+    loadImages();
+  }
+
+  function inView(card) {
+    var r = card.querySelector('.pail-fig').getBoundingClientRect();
+    return r.bottom > 0 && r.top < innerHeight;
+  }
+
+  function lockPage(on) {
+    root.classList.toggle('noscroll', on);
+    page.forEach(function (el) { el.toggleAttribute('inert', on); });
+  }
+
+  function run(update) {
+    if (!useVT) { update(); return Promise.resolve(); }
+    var t = document.startViewTransition(update);
+    t.ready.catch(function () {});
+    return t.finished.catch(function () {});
+  }
+
+  function show(p) {
+    var card = pending, opening = !current;
+    pending = null;
+    if (opening) { savedY = window.scrollY; origin = card; }
+    var src = card && inView(card) ? card : null;
+    if (src && useVT) { pd.classList.add('noname'); src.classList.add('vt-src'); }
+    current = p;
+    run(function () {
+      if (src) src.classList.remove('vt-src');
+      render(p);
+      pd.classList.remove('noname', 'is-out');
+      pd.hidden = false;
+      pd.scrollTop = 0;
+      if (opening) lockPage(true);
+      document.title = p.naziv + ' – Voćko d.o.o.';
+      pd.querySelector('.pd-title').focus({ preventScroll: true });
+    });
+  }
+
+  function hide() {
+    var p = current, card = origin, jump = jumpTo, named = null;
+    current = origin = jumpTo = null;
+    function update() {
+      pd.hidden = true;
+      pd.classList.remove('is-out');
+      pd.innerHTML = '';
+      lockPage(false);
+      document.title = title;
+      if (jump) {
+        document.getElementById(jump).scrollIntoView({ behavior: 'instant' });
+        return;
+      }
+      window.scrollTo({ top: savedY, behavior: 'instant' });
+      var back = card || document.querySelector('main .pail[data-id="' + p.id + '"]');
+      if (useVT && back && back.dataset.id === p.id && inView(back)) { back.classList.add('vt-src'); named = back; }
+      if (back) back.querySelector('.pail-link').focus({ preventScroll: true });
+    }
+    if (useVT) {
+      run(update).then(function () { if (named) named.classList.remove('vt-src'); });
+    } else {
+      pd.classList.add('is-out');
+      setTimeout(update, calm ? 150 : 200);
+    }
+  }
+
+  function route(first) {
+    var p = byId[decodeURIComponent(location.hash.slice(1))];
+    if (p) {
+      var s = history.state;
+      if (s && typeof s.pd === 'number') depth = s.pd;
+      else {
+        depth = first ? 0 : depth + 1;
+        history.replaceState({ pd: depth }, '');
+      }
+      if (!current || current.id !== p.id) show(p);
+    } else {
+      depth = 0;
+      if (current) hide();
+    }
+  }
+
+  /* Vraća na listu i posle više otvorenih proizvoda. Bez prethodnog koraka (otvoren link) samo čisti adresu. */
+  function closeDetail() {
+    if (depth > 0) history.go(-depth);
+    else {
+      history.replaceState(null, '', location.pathname + location.search);
+      route();
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var link = e.target.closest('.pail-link');
+    if (link) { pending = link.closest('.pail'); return; }
+    if (e.target.closest('.pd-back')) { closeDetail(); return; }
+    if (e.target.closest('.pd a[href="#kontakt"]')) jumpTo = 'kontakt';
+  });
+  addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && current) closeDetail();
+  });
+  addEventListener('hashchange', function () { route(); });
+  route(true);
 })();
 </script>
 </body>
