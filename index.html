@@ -102,13 +102,23 @@
   .item .cap{margin-top:16px}
   .item .cap p{color:var(--soft);margin-top:4px}
   .item .ph-in{transition:transform .9s var(--ease)}
-  .i1{grid-column:1/8}  .i1 .ph{aspect-ratio:5/4}
-  .i2{grid-column:9/13;margin-top:clamp(40px,8vw,120px)} .i2 .ph{aspect-ratio:4/5;border-radius:999px 999px 0 0}
-  .i3{grid-column:2/6}  .i3 .ph{aspect-ratio:1;border-radius:14px}
-  .i4{grid-column:6/10;margin-top:clamp(30px,6vw,90px)} .i4 .ph{aspect-ratio:4/5;border-radius:0 110px 0 0}
-  .i5{grid-column:10/13} .i5 .ph{aspect-ratio:3/4;border-radius:999px 999px 0 0}
-  .i6{grid-column:1/8}  .i6 .ph{aspect-ratio:3/2;border-radius:0 0 150px 0}
-  .p-note{grid-column:9/13;align-self:center;font-family:var(--hand);font-weight:600;font-size:clamp(1.8rem,2.8vw,2.4rem);line-height:1.1;transform:rotate(-2deg)}
+  /* 10 punjenja u tri reda (3 + 4 + 3), pa pekarski nadev kao posebna grupa */
+  .i1{grid-column:1/6}   .i1 .ph{aspect-ratio:5/4}
+  .i2{grid-column:6/10;margin-top:clamp(30px,5vw,70px)} .i2 .ph{aspect-ratio:4/5;border-radius:999px 999px 0 0}
+  .i3{grid-column:10/13} .i3 .ph{aspect-ratio:3/4;border-radius:14px}
+  .i4{grid-column:1/4}   .i4 .ph{aspect-ratio:1;border-radius:0 90px 0 0}
+  .i5{grid-column:4/7;margin-top:clamp(24px,4vw,56px)} .i5 .ph{aspect-ratio:4/5;border-radius:14px}
+  .i6{grid-column:7/10}  .i6 .ph{aspect-ratio:3/4;border-radius:999px 999px 0 0}
+  .i7{grid-column:10/13;margin-top:clamp(24px,4vw,56px)} .i7 .ph{aspect-ratio:1;border-radius:14px}
+  .i8{grid-column:1/4}   .i8 .ph{aspect-ratio:3/4;border-radius:999px 999px 0 0}
+  .i9{grid-column:4/8;margin-top:clamp(30px,5vw,70px)} .i9 .ph{aspect-ratio:4/5;border-radius:0 110px 0 0}
+  .i10{grid-column:8/13} .i10 .ph{aspect-ratio:5/4;border-radius:0 0 150px 0}
+  /* u niskom polju natpis ostaje bez ikonice, da se ne preklapaju */
+  .mosaic .ph{container-type:size}
+  @container (max-height:200px){.ph-in svg{display:none}}
+  .p-sub{grid-column:1/-1;margin-bottom:clamp(-44px,-3vw,-20px);padding-top:clamp(20px,2.5vw,32px);border-top:2px solid var(--ink);font-size:clamp(1.8rem,3vw,2.6rem)}
+  .i11{grid-column:1/6}  .i11 .ph{aspect-ratio:3/2;border-radius:14px}
+  .p-note{grid-column:8/13;align-self:center;font-family:var(--hand);font-weight:600;font-size:clamp(1.8rem,2.8vw,2.4rem);line-height:1.1;transform:rotate(-2deg)}
 
   /* Marmelade */
   .jam{position:relative;z-index:2;background:var(--red);color:var(--paper)}
@@ -161,8 +171,16 @@
     nav a:hover::after{transform:scaleX(1);transform-origin:left}
     .tlink:hover::after{animation:redraw .55s var(--ease)}
     .c-link:hover a{text-decoration-color:currentColor}
-    .item:hover .ph-in{transform:scale(1.05)}
+    .jam .item:hover .ph-in{transform:scale(1.05)}
     .item:hover h3::after{transform:scaleX(1)}
+  }
+  /* Punjenja: opis se pojavljuje na hover. Bez miša ili uz smanjene animacije ostaje stalno vidljiv.
+     Mesto za opis je zauzeto i dok je skriven, pa se raspored ne pomera. */
+  @media (hover:hover) and (prefers-reduced-motion:no-preference){
+    .mosaic .item{transition:scale .3s var(--ease)}
+    .mosaic .item:hover{scale:1.03}
+    .mosaic .cap p{opacity:0;translate:0 8px;transition:opacity .3s ease,translate .3s var(--ease)}
+    .mosaic .item:hover .cap p{opacity:1;translate:none}
   }
   @keyframes redraw{0%{transform:scaleX(1);transform-origin:right}49%{transform:scaleX(0);transform-origin:right}50%{transform:scaleX(0);transform-origin:left}100%{transform:scaleX(1);transform-origin:left}}
 
@@ -194,12 +212,9 @@
     .p-head{display:block}
     .p-head p{margin-top:16px}
     .mosaic{grid-template-columns:repeat(6,minmax(0,1fr));column-gap:16px}
-    .i1{grid-column:1/-1}
-    .i2{grid-column:3/7;margin-top:0}
-    .i3{grid-column:1/5}
-    .i4{grid-column:2/7;margin-top:0}
-    .i5{grid-column:1/5}
-    .i6{grid-column:1/-1}
+    .mosaic .item{grid-column:span 3;margin-top:0}
+    .mosaic .i1,.mosaic .i10,.mosaic .i11{grid-column:1/-1}
+    .mosaic .ph-in{padding:20px}
     .p-note{grid-column:1/-1}
 
     .jam-grid{grid-template-columns:repeat(6,minmax(0,1fr));column-gap:16px}
@@ -229,7 +244,7 @@
     .js [data-anim].is-in{opacity:1;transform:none;clip-path:inset(-1px)}
     .js .jam .drip[data-anim].is-in{transform:scaleX(-1)}
     .js [data-anim=wipe].is-in .ph-in{transform:none}
-    @media (hover:hover){.js .item:hover [data-anim=wipe].is-in .ph-in{transform:scale(1.05)}}
+    @media (hover:hover){.js .jam .item:hover [data-anim=wipe].is-in .ph-in{transform:scale(1.05)}}
 
     /* hero, pri učitavanju */
     .line>span{animation:rise 1s var(--ease) both}
@@ -269,6 +284,7 @@
 
   @media print{
     .js [data-anim]{opacity:1!important;transform:none!important;clip-path:none!important}
+    .mosaic .cap p{opacity:1!important;translate:none!important}
     header{position:static}
   }
 </style>
@@ -413,69 +429,126 @@
 
     <div class="mosaic">
       <article class="item i1">
-        <div class="ph" data-anim="wipe" style="--tint:#F2B8BC" role="img" aria-label="Mesto za fotografiju: voćno punjenje višnja">
+        <div class="ph" data-anim="wipe" style="--tint:#F8D0C2" role="img" aria-label="Mesto za fotografiju: voćno punjenje jabuka mlevena">
           <div class="ph-in">
             <svg aria-hidden="true"><use href="#jar"/></svg>
-            <b>Fotografija: višnja</b><small>tegla sa nalepnicom, 5:4, 1500×1200 px</small>
-            <!-- ZAMENI: <img src="slike/visnja.jpg" alt="Tegla voćnog punjenja višnja" loading="lazy"> -->
-          </div>
-        </div>
-        <div class="cap" data-anim="up" style="--d:.15s"><h3>Višnja</h3><p>Sočna, blago kiselkasta.</p></div>
-      </article>
-
-      <article class="item i2">
-        <div class="ph" data-anim="wipe" style="--tint:#F8D0C2;--d:.1s" role="img" aria-label="Mesto za fotografiju: voćno punjenje jabuka mlevena">
-          <div class="ph-in">
-            <svg aria-hidden="true"><use href="#jar"/></svg>
-            <b>Fotografija: jabuka mlevena</b><small>tegla, 4:5, 1000×1250 px</small>
+            <b>Fotografija: jabuka mlevena</b><small>tegla, 5:4, 1500×1200 px</small>
             <!-- ZAMENI: <img src="slike/jabuka-mlevena.jpg" alt="Tegla voćnog punjenja od mlevene jabuke" loading="lazy"> -->
           </div>
         </div>
-        <div class="cap" data-anim="up" style="--d:.2s"><h3>Jabuka – mlevena</h3><p>Fino mlevena, glatka.</p></div>
+        <div class="cap" data-anim="up" style="--d:.15s"><h3>Jabuka mlevena</h3><p>Glatko punjenje za štrudle, pite i kolače.</p></div>
+      </article>
+
+      <article class="item i2">
+        <div class="ph" data-anim="wipe" style="--tint:#F2B8BC;--d:.1s" role="img" aria-label="Mesto za fotografiju: voćno punjenje višnja">
+          <div class="ph-in">
+            <svg aria-hidden="true"><use href="#jar"/></svg>
+            <b>Fotografija: višnja</b><small>tegla, 4:5, 1000×1250 px</small>
+            <!-- ZAMENI: <img src="slike/visnja.jpg" alt="Tegla voćnog punjenja od višnje" loading="lazy"> -->
+          </div>
+        </div>
+        <div class="cap" data-anim="up" style="--d:.25s"><h3>Višnja</h3><p>Za pite, štrudle i krofne.</p></div>
       </article>
 
       <article class="item i3">
-        <div class="ph" data-anim="wipe" style="--tint:#FBE7A6" role="img" aria-label="Mesto za fotografiju: voćno punjenje jabuka kocke">
+        <div class="ph" data-anim="wipe" style="--tint:#FBE7A6;--d:.2s" role="img" aria-label="Mesto za fotografiju: voćno punjenje jabuka kocka">
           <div class="ph-in">
             <svg aria-hidden="true"><use href="#jar"/></svg>
-            <b>Fotografija: jabuka kocke</b><small>tegla, 1:1, 1000×1000 px</small>
-            <!-- ZAMENI: <img src="slike/jabuka-kocke.jpg" alt="Tegla voćnog punjenja od jabuke u kockama" loading="lazy"> -->
+            <b>Fotografija: jabuka kocka</b><small>tegla, 3:4, 900×1200 px</small>
+            <!-- ZAMENI: <img src="slike/jabuka-kocka.jpg" alt="Tegla voćnog punjenja od jabuke u kockama" loading="lazy"> -->
           </div>
         </div>
-        <div class="cap" data-anim="up" style="--d:.15s"><h3>Jabuka – kocke</h3><p>Komadići jabuke za pite i štrudle.</p></div>
+        <div class="cap" data-anim="up" style="--d:.35s"><h3>Jabuka kocka</h3><p>Komadići jabuke za pite i štrudle.</p></div>
       </article>
 
       <article class="item i4">
-        <div class="ph" data-anim="wipe" style="--tint:#FBC784;--d:.1s" role="img" aria-label="Mesto za fotografiju: voćno punjenje pomorandža">
+        <div class="ph" data-anim="wipe" style="--tint:#F5B5AE" role="img" aria-label="Mesto za fotografiju: voćno punjenje jagoda">
           <div class="ph-in">
             <svg aria-hidden="true"><use href="#jar"/></svg>
-            <b>Fotografija: pomorandža</b><small>tegla, 4:5, 1000×1250 px</small>
-            <!-- ZAMENI: <img src="slike/pomorandza.jpg" alt="Tegla voćnog punjenja pomorandža" loading="lazy"> -->
+            <b>Fotografija: jagoda</b><small>tegla, 1:1, 1000×1000 px</small>
+            <!-- ZAMENI: <img src="slike/jagoda.jpg" alt="Tegla voćnog punjenja od jagode" loading="lazy"> -->
           </div>
         </div>
-        <div class="cap" data-anim="up" style="--d:.2s"><h3>Pomorandža</h3><p>Miris citrusa za kolače i peciva.</p></div>
+        <div class="cap" data-anim="up" style="--d:.15s"><h3>Jagoda</h3><p>Za krofne, kroasane i kolače.</p></div>
       </article>
 
       <article class="item i5">
-        <div class="ph" data-anim="wipe" style="--tint:#FAD79B;--d:.2s" role="img" aria-label="Mesto za fotografiju: voćno punjenje kajsija">
+        <div class="ph" data-anim="wipe" style="--tint:#F4B3C3;--d:.1s" role="img" aria-label="Mesto za fotografiju: voćno punjenje malina">
           <div class="ph-in">
             <svg aria-hidden="true"><use href="#jar"/></svg>
-            <b>Fotografija: kajsija</b><small>tegla, 3:4, 900×1200 px</small>
-            <!-- ZAMENI: <img src="slike/kajsija.jpg" alt="Tegla voćnog punjenja kajsija" loading="lazy"> -->
+            <b>Fotografija: malina</b><small>tegla, 4:5, 1000×1250 px</small>
+            <!-- ZAMENI: <img src="slike/malina.jpg" alt="Tegla voćnog punjenja od maline" loading="lazy"> -->
           </div>
         </div>
-        <div class="cap" data-anim="up" style="--d:.3s"><h3>Kajsija</h3><p>Klasika za kroasane i krofne.</p></div>
+        <div class="cap" data-anim="up" style="--d:.25s"><h3>Malina</h3><p>Za kolače, krofne i kroasane.</p></div>
       </article>
 
       <article class="item i6">
-        <div class="ph" data-anim="wipe" style="--tint:#F4B3C3" role="img" aria-label="Mesto za fotografiju: voćno punjenje malina">
+        <div class="ph" data-anim="wipe" style="--tint:#CDBBD6;--d:.2s" role="img" aria-label="Mesto za fotografiju: voćno punjenje šumsko voće">
           <div class="ph-in">
             <svg aria-hidden="true"><use href="#jar"/></svg>
-            <b>Fotografija: malina</b><small>tegla, 3:2, 1500×1000 px</small>
-            <!-- ZAMENI: <img src="slike/malina.jpg" alt="Tegla voćnog punjenja malina" loading="lazy"> -->
+            <b>Fotografija: šumsko voće</b><small>tegla, 3:4, 900×1200 px</small>
+            <!-- ZAMENI: <img src="slike/sumsko-voce.jpg" alt="Tegla voćnog punjenja od šumskog voća" loading="lazy"> -->
           </div>
         </div>
-        <div class="cap" data-anim="up" style="--d:.15s"><h3>Malina</h3><p>Jak ukus i boja maline.</p></div>
+        <div class="cap" data-anim="up" style="--d:.35s"><h3>Šumsko voće</h3><p>Za kolače, pite i kroasane.</p></div>
+      </article>
+
+      <article class="item i7">
+        <div class="ph" data-anim="wipe" style="--tint:#FAD79B;--d:.3s" role="img" aria-label="Mesto za fotografiju: voćno punjenje kajsija">
+          <div class="ph-in">
+            <svg aria-hidden="true"><use href="#jar"/></svg>
+            <b>Fotografija: kajsija</b><small>tegla, 1:1, 1000×1000 px</small>
+            <!-- ZAMENI: <img src="slike/kajsija.jpg" alt="Tegla voćnog punjenja od kajsije" loading="lazy"> -->
+          </div>
+        </div>
+        <div class="cap" data-anim="up" style="--d:.45s"><h3>Kajsija</h3><p>Klasika za kroasane i krofne.</p></div>
+      </article>
+
+      <article class="item i8">
+        <div class="ph" data-anim="wipe" style="--tint:#FBC784" role="img" aria-label="Mesto za fotografiju: voćno punjenje pomorandža">
+          <div class="ph-in">
+            <svg aria-hidden="true"><use href="#jar"/></svg>
+            <b>Fotografija: pomorandža</b><small>tegla, 3:4, 900×1200 px</small>
+            <!-- ZAMENI: <img src="slike/pomorandza.jpg" alt="Tegla voćnog punjenja od pomorandže" loading="lazy"> -->
+          </div>
+        </div>
+        <div class="cap" data-anim="up" style="--d:.15s"><h3>Pomorandža</h3><p>Miris citrusa za kolače i peciva.</p></div>
+      </article>
+
+      <article class="item i9">
+        <div class="ph" data-anim="wipe" style="--tint:#FBEE9E;--d:.1s" role="img" aria-label="Mesto za fotografiju: voćno punjenje limun">
+          <div class="ph-in">
+            <svg aria-hidden="true"><use href="#jar"/></svg>
+            <b>Fotografija: limun</b><small>tegla, 4:5, 1000×1250 px</small>
+            <!-- ZAMENI: <img src="slike/limun.jpg" alt="Tegla voćnog punjenja od limuna" loading="lazy"> -->
+          </div>
+        </div>
+        <div class="cap" data-anim="up" style="--d:.25s"><h3>Limun</h3><p>Ukus citrusa za kolače i kroasane.</p></div>
+      </article>
+
+      <article class="item i10">
+        <div class="ph" data-anim="wipe" style="--tint:#D3B8C4;--d:.2s" role="img" aria-label="Mesto za fotografiju: voćno punjenje suva šljiva">
+          <div class="ph-in">
+            <svg aria-hidden="true"><use href="#jar"/></svg>
+            <b>Fotografija: suva šljiva</b><small>tegla, 5:4, 1500×1200 px</small>
+            <!-- ZAMENI: <img src="slike/suva-sljiva.jpg" alt="Tegla voćnog punjenja od suve šljive" loading="lazy"> -->
+          </div>
+        </div>
+        <div class="cap" data-anim="up" style="--d:.35s"><h3>Suva šljiva</h3><p>Za štrudle, pite i pekarske proizvode.</p></div>
+      </article>
+
+      <h3 class="p-sub" data-anim="up">Pekarski nadev</h3>
+
+      <article class="item i11">
+        <div class="ph" data-anim="wipe" style="--tint:#C9DFB0" role="img" aria-label="Mesto za fotografiju: pekarski nadev spanać">
+          <div class="ph-in">
+            <svg aria-hidden="true"><use href="#jar"/></svg>
+            <b>Fotografija: spanać</b><small>tegla, 3:2, 1500×1000 px</small>
+            <!-- ZAMENI: <img src="slike/spanac.jpg" alt="Tegla pekarskog nadeva od spanaća" loading="lazy"> -->
+          </div>
+        </div>
+        <div class="cap" data-anim="up" style="--d:.15s"><h3>Spanać</h3><p>Nadev za slane pite, štrudle i pekarske proizvode.</p></div>
       </article>
 
       <p class="p-note" data-anim="side">Kompletna ponuda, pakovanja i cene? <a href="#kontakt">Pitajte nas.</a></p>
