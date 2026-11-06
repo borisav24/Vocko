@@ -29,8 +29,8 @@
   html.noscroll{overflow:hidden}
   body{font-family:'Alegreya Sans',system-ui,sans-serif;font-size:clamp(1.125rem,1.05rem + .3vw,1.3rem);line-height:1.5;color:var(--ink);background:var(--paper)}
   h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.04;letter-spacing:-.01em}
-  .products,.best,.p-line,.about{color:var(--text)}
-  :is(.products,.best,.p-line,.about) :is(h2,h3){color:var(--head)}
+  .products,.best,.p-line,.about,.quotes{color:var(--text)}
+  :is(.products,.best,.p-line,.about,.quotes) :is(h2,h3){color:var(--head)}
   a{color:inherit}
   :focus-visible{outline:3px solid var(--ink);outline-offset:3px}
   section{scroll-margin-top:84px}
@@ -76,7 +76,7 @@
   /* Hero: fotografija ide do desne ivice ekrana */
   .hero{position:relative;z-index:3;background:var(--orange);color:var(--ink-hero)}
   .lead,.hero-note{color:var(--text-hero)}
-  .hero .btn{background:var(--ink-hero)}
+  .hero .btn,.quotes .btn{background:var(--ink-hero)}
   .hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);min-height:min(100svh,920px);padding-left:max(var(--pad),calc((100vw - var(--max))/2 + var(--pad)))}
   .hero-text{align-self:center;padding:120px 40px 90px 0;position:relative;z-index:2}
   h1{position:relative;display:inline-block;font-size:clamp(3.5rem,9vw,8.4rem);line-height:1}
@@ -142,6 +142,15 @@
   .about p{grid-column:2;margin-top:20px}
   .about p.first{margin-top:0;font-size:1.15em}
 
+  /* Utisci */
+  .quotes{padding-bottom:clamp(80px,10vw,150px)}
+  .quotes .p-head{align-items:center;gap:20px 40px}
+  .quotes .p-title{flex:1 1 0;min-width:min(14em,100%);font-size:clamp(1.9rem,3.6vw,3.2rem);line-height:1.15;text-wrap:balance}
+  .quote-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(36px,5vw,72px)}
+  .quote::before{content:"„";display:block;height:.55em;margin-bottom:12px;font-family:var(--serif);font-size:clamp(4.5rem,7vw,6.5rem);line-height:0;color:var(--orange)}
+  .quote blockquote{font-size:1.15em}
+  .quote figcaption{margin-top:16px;font-weight:700;color:var(--head)}
+
   /* Kontakt */
   .contact{background:var(--yellow);padding-block:clamp(70px,10vw,140px)}
   .c-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:end}
@@ -169,7 +178,7 @@
   /* Hover samo tamo gde postoji miš */
   @media (hover:hover){
     .btn:hover{transform:translateY(-3px) rotate(-1deg);background:var(--red)}
-    .hero .btn:hover{background:color-mix(in srgb,var(--ink-hero) 90%,#000)}
+    .hero .btn:hover,.quotes .btn:hover{background:color-mix(in srgb,var(--ink-hero) 90%,#000)}
     .contact .btn:hover{background:var(--soft)}
     nav a:hover::after{transform:scaleX(1);transform-origin:left}
     .tlink:hover::after{animation:redraw .55s var(--ease)}
@@ -215,6 +224,8 @@
     .hero-photo .ph-in{padding-left:30%}
 
     .products,.best,.p-line{--gap:20px}
+
+    .quote-grid{grid-template-columns:1fr}
 
     .about-grid{display:block}
     .about p.first{margin-top:20px}
@@ -679,6 +690,34 @@
     <h2 data-anim="up">Dobar proizvod počinje od dobrog voća.</h2>
     <p class="first" data-anim="up" style="--d:.1s">Voćko je porodična firma iz Valjeva. U Popučkama pravimo voćna punjenja i marmelade više od 20 godina.</p>
     <p data-anim="up" style="--d:.18s">Sirovine biramo pažljivo i držimo isti kvalitet u svakoj isporuci. Isporučujemo na vreme i u dogovorenoj količini, a sa partnerima širom Srbije radimo godinama.</p>
+  </div>
+</section>
+
+<!-- ============ UTISCI ============ -->
+<!-- Kad ubaciš prave utiske, obriši atribut hidden -->
+<section class="quotes" id="utisci" hidden>
+  <div class="wrap">
+    <div class="p-head">
+      <h2 class="p-title" data-anim="up">Više od 20 godina pravimo punjenja na koja se naši partneri oslanjaju svakog dana.</h2>
+      <div data-anim="up" style="--d:.1s"><a href="#kontakt" class="btn">Kontaktirajte nas</a></div>
+    </div>
+    <div class="quote-grid">
+      <figure class="quote" data-anim="up">
+        <!-- ZAMENI: pravi utisak -->
+        <blockquote>[Ovde ide utisak partnera]</blockquote>
+        <figcaption>[Ime Prezime, Naziv radnje, Grad]</figcaption>
+      </figure>
+      <figure class="quote" data-anim="up" style="--d:.08s">
+        <!-- ZAMENI: pravi utisak -->
+        <blockquote>[Ovde ide utisak partnera]</blockquote>
+        <figcaption>[Ime Prezime, Naziv radnje, Grad]</figcaption>
+      </figure>
+      <figure class="quote" data-anim="up" style="--d:.16s">
+        <!-- ZAMENI: pravi utisak -->
+        <blockquote>[Ovde ide utisak partnera]</blockquote>
+        <figcaption>[Ime Prezime, Naziv radnje, Grad]</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
