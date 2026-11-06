@@ -234,6 +234,11 @@
     .c-link:hover a{text-decoration-color:currentColor}
     .item:hover h3::after{transform:scaleX(1)}
   }
+  /* Meni: mali "pop" sa odskokom; pri izlasku se glatko vraća. Samo transform, pa se ostale stavke ne pomeraju. */
+  @media (hover:hover) and (min-width:861px) and (prefers-reduced-motion:no-preference){
+    nav a{transform-origin:center;transition:transform .3s ease-out}
+    nav a:hover,nav a:focus-visible{transform:scale(1.09);transition-timing-function:cubic-bezier(.34,1.56,.64,1)}
+  }
   /* Kantice: opis se pojavljuje na hover. Bez miša ili uz smanjene animacije ostaje stalno vidljiv.
      Mesto za opis je zauzeto i dok je skriven, pa se raspored ne pomera. */
   @media (hover:hover) and (prefers-reduced-motion:no-preference){
