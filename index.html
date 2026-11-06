@@ -89,7 +89,6 @@
   .hero-photo{position:absolute;inset:0;border-radius:260px 0 0 0;--tint:#FFC814}
   .hero-mini{position:absolute;left:-112px;bottom:64px;z-index:2;width:clamp(180px,17vw,250px);transform:rotate(-4deg)}
   .hero-mini .ph{aspect-ratio:4/5;border:8px solid var(--paper);--tint:#FBF1DF}
-  .hero-mini .ph::after{inset:6px}
   .hero-note{position:absolute;left:-190px;bottom:18px;z-index:3;font-family:var(--hand);font-weight:600;font-size:1.7rem;line-height:1;transform:rotate(-3deg)}
 
   /* Punjenje koje curi preko ivice sekcije */
@@ -218,7 +217,6 @@
     .hero-photo{border-radius:130px 0 0 0}
     .hero-mini{left:-13vw;bottom:34px;width:clamp(128px,36vw,210px)}
     .hero-mini .ph{border-width:6px}
-    .hero-mini .ph small{display:none}
     .hero-note{left:-14vw;bottom:-14px;font-size:1.45rem}
     .hero .ph-in,.hero-mini .ph-in{padding:16px}
     .hero-photo .ph-in{padding-left:30%}
@@ -422,11 +420,9 @@
         </div>
       </div>
       <div class="hero-mini">
-        <div class="ph" role="img" aria-label="Mesto za manju fotografiju">
+        <div class="ph">
           <div class="ph-in">
-            <b>Manja fotografija</b>
-            <small>npr. kroasan sa punjenjem, 600×750 px</small>
-            <!-- ZAMENI: <img src="slike/kroasan.jpg" alt="Kroasan sa voćnim punjenjem" loading="lazy"> -->
+            <img src="slike/kroasan.jpg" alt="Kroasan sa voćnim punjenjem" width="600" height="750" loading="eager">
           </div>
         </div>
       </div>
