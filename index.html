@@ -103,6 +103,9 @@
   .p-title{font-family:'Alegreya Sans',system-ui,sans-serif;font-weight:300;font-size:clamp(2.7rem,5.4vw,4.8rem);letter-spacing:0}
   .p-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 32px;margin-bottom:clamp(44px,6vw,84px)}
   .p-head p{flex-basis:100%;max-width:34em}
+  /* Etiketa sa drugim pakovanjima: iste neravne ivice kao dugme */
+  .p-head .p-offer{flex:0 1 auto;max-width:none;display:flex;align-items:center;gap:12px;margin-top:10px;padding:.55em 1.3em .55em 1em;background:rgba(255,200,20,.16);border:2px solid var(--line);border-radius:255px 18px 225px 18px/18px 225px 18px 255px;font-size:.95em;line-height:1.3}
+  .p-offer svg{flex:none;width:34px;height:34px}
   /* Kantice: flex centrira i nepun poslednji red */
   .pails{--n:4;display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(44px,6vw,84px) var(--gap);scroll-margin-top:84px}
   .pails .pail{flex:0 0 calc((100% - (var(--n) - 1)*var(--gap))/var(--n));min-width:0}
@@ -224,6 +227,7 @@
     .hero-note{left:-14vw;bottom:-30px;font-size:1.45rem}
 
     .products,.best,.p-line{--gap:20px}
+    .p-head .p-offer{flex-basis:100%}
 
     .quote-grid{grid-template-columns:1fr}
 
@@ -438,6 +442,7 @@
       <h2 class="p-title" data-anim="up">Naši proizvodi</h2>
       <a class="tlink" data-anim="up" style="--d:.08s" href="#lista-proizvoda">Svi proizvodi <span aria-hidden="true">→</span></a>
       <p data-anim="up" style="--d:.12s">Stabilna na pečenju i puna voća. Za kroasane, pite, štrudle, krofne, palačinke i kolače.</p>
+      <p class="p-offer" data-anim="up" style="--d:.16s;--tint:#FBC784"><svg aria-hidden="true"><use href="#pail"/></svg><span>Voćna punjenja su dostupna i u pakovanjima od <b>3&nbsp;kg</b>, <b>18&nbsp;kg</b> i <b>20&nbsp;kg</b>. <a href="#kontakt">Pitajte nas.</a></span></p>
     </div>
 
     <div class="pails" id="lista-proizvoda">
@@ -447,7 +452,7 @@
           <b>Fotografija: jabuka mlevena</b>
           <!-- ZAMENI: <img src="slike/jabuka-mlevena.png" alt="Kantica voćnog punjenja jabuka mlevena" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Jabuka mlevena</h3><p>Glatko punjenje za štrudle, pite i kolače.</p></div>
+        <div class="cap"><h3>Jabuka mlevena</h3><small class="p-pack">pakovanje 6 kg</small><p>Glatko punjenje za štrudle, pite i kolače.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#8E1B2C;--d:.08s">
@@ -456,7 +461,7 @@
           <b>Fotografija: višnja</b>
           <!-- ZAMENI: <img src="slike/visnja.png" alt="Kantica voćnog punjenja višnja" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Višnja</h3><p>Za pite, štrudle i krofne.</p></div>
+        <div class="cap"><h3>Višnja</h3><small class="p-pack">pakovanje 6 kg</small><p>Za pite, štrudle i krofne.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#B71C1C;--d:.16s">
@@ -465,7 +470,7 @@
           <b>Fotografija: jabuka kocka</b>
           <!-- ZAMENI: <img src="slike/jabuka-kocka.png" alt="Kantica voćnog punjenja jabuka kocka" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Jabuka kocka</h3><p>Komadići jabuke za pite i štrudle.</p></div>
+        <div class="cap"><h3>Jabuka kocka</h3><small class="p-pack">pakovanje 6 kg</small><p>Komadići jabuke za pite i štrudle.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#D7263D;--d:.24s">
@@ -474,7 +479,7 @@
           <b>Fotografija: jagoda</b>
           <!-- ZAMENI: <img src="slike/jagoda.png" alt="Kantica voćnog punjenja jagoda" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Jagoda</h3><p>Za krofne, kroasane i kolače.</p></div>
+        <div class="cap"><h3>Jagoda</h3><small class="p-pack">pakovanje 6 kg</small><p>Za krofne, kroasane i kolače.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#C2185B">
@@ -483,7 +488,7 @@
           <b>Fotografija: malina</b>
           <!-- ZAMENI: <img src="slike/malina.png" alt="Kantica voćnog punjenja malina" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Malina</h3><p>Za kolače, krofne i kroasane.</p></div>
+        <div class="cap"><h3>Malina</h3><small class="p-pack">pakovanje 6 kg</small><p>Za kolače, krofne i kroasane.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#5E2B6E;--d:.08s">
@@ -492,7 +497,7 @@
           <b>Fotografija: šumsko voće</b>
           <!-- ZAMENI: <img src="slike/sumsko-voce.png" alt="Kantica voćnog punjenja šumsko voće" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Šumsko voće</h3><p>Za kolače, pite i kroasane.</p></div>
+        <div class="cap"><h3>Šumsko voće</h3><small class="p-pack">pakovanje 6 kg</small><p>Za kolače, pite i kroasane.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#CA7725;--d:.16s">
@@ -501,7 +506,7 @@
           <b>Fotografija: kajsija</b>
           <!-- ZAMENI: <img src="slike/kajsija.png" alt="Kantica voćnog punjenja kajsija" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Kajsija</h3><p>Klasika za kroasane i krofne.</p></div>
+        <div class="cap"><h3>Kajsija</h3><small class="p-pack">pakovanje 6 kg</small><p>Klasika za kroasane i krofne.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#DA6E00;--d:.24s">
@@ -510,7 +515,7 @@
           <b>Fotografija: pomorandža</b>
           <!-- ZAMENI: <img src="slike/pomorandza.png" alt="Kantica voćnog punjenja pomorandža" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Pomorandža</h3><p>Miris citrusa za kolače i peciva.</p></div>
+        <div class="cap"><h3>Pomorandža</h3><small class="p-pack">pakovanje 6 kg</small><p>Miris citrusa za kolače i peciva.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#E8B400">
@@ -519,7 +524,7 @@
           <b>Fotografija: limun</b>
           <!-- ZAMENI: <img src="slike/limun.png" alt="Kantica voćnog punjenja limun" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Limun</h3><p>Ukus citrusa za kolače i kroasane.</p></div>
+        <div class="cap"><h3>Limun</h3><small class="p-pack">pakovanje 6 kg</small><p>Ukus citrusa za kolače i kroasane.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#4A2545;--d:.08s">
@@ -528,7 +533,7 @@
           <b>Fotografija: suva šljiva</b>
           <!-- ZAMENI: <img src="slike/suva-sljiva.png" alt="Kantica voćnog punjenja suva šljiva" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Suva šljiva</h3><p>Za štrudle, pite i pekarske proizvode.</p></div>
+        <div class="cap"><h3>Suva šljiva</h3><small class="p-pack">pakovanje 6 kg</small><p>Za štrudle, pite i pekarske proizvode.</p></div>
       </article>
     </div>
 
@@ -540,7 +545,7 @@
           <b>Fotografija: spanać</b>
           <!-- ZAMENI: <img src="slike/spanac.png" alt="Kantica pekarskog nadeva spanać" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Spanać</h3><p>Nadev za slane pite, štrudle i pekarske proizvode.</p></div>
+        <div class="cap"><h3>Spanać</h3><small class="p-pack">pakovanje 6 kg</small><p>Nadev za slane pite, štrudle i pekarske proizvode.</p></div>
       </article>
       <p class="p-note" data-anim="side">Kompletna ponuda, pakovanja i cene? <a href="#kontakt">Pitajte nas.</a></p>
     </div>
@@ -558,7 +563,7 @@
           <b>Fotografija: višnja</b>
           <!-- ZAMENI: <img src="slike/visnja.png" alt="Kantica voćnog punjenja višnja" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Višnja</h3><p>Za pite, štrudle i krofne.</p></div>
+        <div class="cap"><h3>Višnja</h3><small class="p-pack">pakovanje 6 kg</small><p>Za pite, štrudle i krofne.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#C62828;--d:.08s">
@@ -567,7 +572,7 @@
           <b>Fotografija: jabuka mlevena</b>
           <!-- ZAMENI: <img src="slike/jabuka-mlevena.png" alt="Kantica voćnog punjenja jabuka mlevena" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Jabuka mlevena</h3><p>Glatko punjenje za štrudle, pite i kolače.</p></div>
+        <div class="cap"><h3>Jabuka mlevena</h3><small class="p-pack">pakovanje 6 kg</small><p>Glatko punjenje za štrudle, pite i kolače.</p></div>
       </article>
     </div>
   </div>
@@ -585,7 +590,7 @@
           <b>Fotografija: marmelada mešana</b>
           <!-- ZAMENI: <img src="slike/marmelada-mesana.png" alt="Kantica mešane marmelade" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Mešana</h3><p>Mešavina voća, tradicionalan domaći ukus.</p></div>
+        <div class="cap"><h3>Mešana</h3><small class="p-pack">pakovanje 6 kg</small><p>Mešavina voća, tradicionalan domaći ukus.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#CA7725;--d:.08s">
@@ -594,7 +599,7 @@
           <b>Fotografija: marmelada kajsija</b>
           <!-- ZAMENI: <img src="slike/marmelada-kajsija.png" alt="Kantica marmelade od kajsije" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Kajsija</h3><p>Za mazanje i punjenje.</p></div>
+        <div class="cap"><h3>Kajsija</h3><small class="p-pack">pakovanje 6 kg</small><p>Za mazanje i punjenje.</p></div>
       </article>
     </div>
   </div>
@@ -611,7 +616,7 @@
           <b>Fotografija: glazura karamel</b>
           <!-- ZAMENI: <img src="slike/glazura-karamel.png" alt="Kantica glazure karamel" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Glazura karamel</h3><p>Za torte, kolače i krofne.</p></div>
+        <div class="cap"><h3>Glazura karamel</h3><small class="p-pack">pakovanje 6 kg</small><p>Za torte, kolače i krofne.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#5A3221;--d:.08s">
@@ -620,7 +625,7 @@
           <b>Fotografija: preliv čokolada</b>
           <!-- ZAMENI: <img src="slike/preliv-cokolada.png" alt="Kantica preliva čokolada" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Preliv čokolada</h3><p>Za torte, palačinke i sladoled.</p></div>
+        <div class="cap"><h3>Preliv čokolada</h3><small class="p-pack">pakovanje 6 kg</small><p>Za torte, palačinke i sladoled.</p></div>
       </article>
 
       <article class="item pail" data-anim="up" style="--accent:#D4A55A;--d:.16s">
@@ -629,7 +634,7 @@
           <b>Fotografija: nadev vanila</b>
           <!-- ZAMENI: <img src="slike/nadev-vanila.png" alt="Kantica nadeva vanila" loading="lazy"> -->
         </div>
-        <div class="cap"><h3>Nadev vanila</h3><p>Za kolače, krofne i peciva.</p></div>
+        <div class="cap"><h3>Nadev vanila</h3><small class="p-pack">pakovanje 6 kg</small><p>Za kolače, krofne i peciva.</p></div>
       </article>
     </div>
   </div>
