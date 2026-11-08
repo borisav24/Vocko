@@ -326,6 +326,71 @@
     footer .wrap{grid-template-columns:1fr}
   }
 
+  /* ===== Kategorije proizvoda =====
+     Katalog (od "Naši proizvodi" do "Topinzi"): uska kolona levo, proizvodi desno.
+     Ispod 900px kolona postaje vodoravna traka sa čipovima, lepljiva ispod menija. */
+  .catalog{max-width:var(--max);margin-inline:auto;padding-inline:var(--pad);display:grid;grid-template-columns:clamp(170px,15vw,210px) minmax(0,1fr);column-gap:clamp(28px,4vw,64px)}
+  .catalog .wrap{max-width:none;padding-inline:0}
+  .catalog :is(section,.pails,.p-sub){scroll-margin-top:96px}
+  .cats-col{padding-top:clamp(150px,16vw,250px)}
+  .cats{position:sticky;top:100px;transition:top .4s var(--ease)}
+  body:has(header.hide) .cats{top:28px}
+  .cats-title{font-family:var(--hand);font-weight:600;font-size:2rem;line-height:1;color:var(--head);margin-bottom:12px}
+  .cats ul{list-style:none}
+  .cats a{position:relative;display:inline-block;padding:7px 0 7px 24px;color:var(--text);text-decoration:none;line-height:1.25;transition:color .25s,translate .3s var(--ease)}
+  .cats a::before{content:"";position:absolute;left:0;top:50%;width:16px;height:8px;margin-top:-4px;background:var(--red);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c20-4 38 2 58 0s40-3 58 0' fill='none' stroke='%23CF2B38' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c20-4 38 2 58 0s40-3 58 0' fill='none' stroke='%23CF2B38' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+  .cats a.is-active{font-weight:700;color:var(--red)}
+  .cats a.is-active::before{transform:none}
+  @media (hover:hover){
+    .cats a:hover{color:var(--red);translate:4px 0}
+  }
+  @media (min-width:1101px){
+    .catalog :is(.products,.p-line) .pails{--n:3}
+    .catalog #topinzi .pails{--n:4}
+    .catalog .p-group{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .catalog .p-note{grid-column:3}
+  }
+  @media (max-width:899px){
+    .catalog{display:block}
+    .catalog :is(section,.pails,.p-sub){scroll-margin-top:146px}
+    .cats-col{position:sticky;top:72px;z-index:5;margin:100px calc(-1*var(--pad)) 0;padding:10px 0;background:var(--paper);border-bottom:2px solid var(--line);transition:top .4s var(--ease)}
+    body:has(header.hide) .cats-col{top:0}
+    .cats{position:static}
+    .cats-title{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+    .cats ul{display:flex;gap:8px;overflow-x:auto;padding-inline:var(--pad);scrollbar-width:none}
+    .cats ul::-webkit-scrollbar{display:none}
+    .cats li{flex:none}
+    .cats a{display:block;padding:.35em 1em;font-size:1rem;font-weight:700;white-space:nowrap;border:2px solid var(--line);border-radius:999px;transition:color .25s,background-color .25s,border-color .25s}
+    .cats a::before{display:none}
+    .cats a.is-active{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+    .cats a:hover{translate:none}
+    .catalog .products{padding-top:clamp(28px,5vw,44px)}
+  }
+
+  /* Padajući meni ispod "Proizvodi" (na telefonu: uvučena podlista) */
+  .has-sub{position:relative}
+  .sub ul{list-style:none}
+  .sub a::after{display:none}
+  @media (min-width:861px){
+    .sub{position:absolute;top:100%;left:50%;width:max-content;padding-top:14px;translate:-50% 0;transform-origin:50% 0;opacity:0;visibility:hidden;transform:translateY(-6px) scale(.96)}
+    .has-sub.open .sub{opacity:1;visibility:visible;transform:none}
+    .sub ul{padding:8px;background:var(--paper);border:2px solid var(--ink);border-radius:18px;box-shadow:0 16px 32px -14px rgba(46,21,8,.4)}
+    .sub a,.sub a:hover,.sub a:focus-visible{display:block;padding:7px 16px;border-radius:10px;font-weight:500;transform:none}
+    .sub a:hover,.sub a:focus-visible{color:var(--red);background:rgba(255,200,20,.22)}
+  }
+  @media (min-width:861px) and (prefers-reduced-motion:no-preference){
+    .sub{transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1),visibility 0s .25s}
+    .has-sub.open .sub{transition-delay:0s}
+  }
+  @media (max-width:860px){
+    nav#meni{justify-content:safe center;overflow-y:auto}
+    .sub ul{padding:2px 0 6px 1.2em}
+    .sub a{display:block;padding:3px 0;font-family:'Alegreya Sans',system-ui,sans-serif;font-weight:700;font-size:clamp(1.1rem,4.8vw,1.4rem);line-height:1.3}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .cats,.cats-col,.cats a,.cats a::before{transition:none}
+  }
+
   /* Animacije: sve je ovde, pa ih prefers-reduced-motion gasi na jednom mestu */
   @media (prefers-reduced-motion:no-preference){
     html{scroll-behavior:smooth}
@@ -542,7 +607,19 @@
     <button class="burger" type="button" aria-label="Otvori meni" aria-expanded="false" aria-controls="meni"><span></span><span></span></button>
     <nav id="meni">
       <a href="#pocetna">Početna</a>
-      <a href="#proizvodi">Proizvodi</a>
+      <div class="has-sub">
+        <a href="#proizvodi" aria-controls="meni-kategorije">Proizvodi</a>
+        <div class="sub" id="meni-kategorije">
+          <ul>
+            <li><a href="#lista-proizvoda">Voćna punjenja</a></li>
+            <li><a href="#pekarski-nadev">Pekarski nadev</a></li>
+            <li><a href="#najprodavaniji">Najprodavaniji</a></li>
+            <li><a href="#marmelade">Marmelade</a></li>
+            <li><a href="#glazure">Glazure, prelivi i nadevi</a></li>
+            <li><a href="#topinzi">Topinzi</a></li>
+          </ul>
+        </div>
+      </div>
       <a href="#najprodavaniji">Najprodavaniji</a>
       <a href="#o-nama">O nama</a>
       <a href="#kontakt">Kontakt</a>
@@ -584,6 +661,23 @@
   </div>
   <svg class="drip" aria-hidden="true"><use href="#drip-shape"/></svg>
 </section>
+
+<!-- ============ KATALOG: kategorije levo (na telefonu traka sa čipovima), proizvodi desno ============ -->
+<div class="catalog">
+<aside class="cats-col">
+  <div class="cats" role="navigation" aria-label="Kategorije proizvoda">
+    <p class="cats-title">Kategorije</p>
+    <ul>
+      <li><a href="#lista-proizvoda">Voćna punjenja</a></li>
+      <li><a href="#pekarski-nadev">Pekarski nadev</a></li>
+      <li><a href="#najprodavaniji">Najprodavaniji</a></li>
+      <li><a href="#marmelade">Marmelade</a></li>
+      <li><a href="#glazure">Glazure, prelivi i nadevi</a></li>
+      <li><a href="#topinzi">Topinzi</a></li>
+    </ul>
+  </div>
+</aside>
+<div class="catalog-main">
 
 <!-- ============ PROIZVODI ============ -->
 <section class="products" id="proizvodi">
@@ -688,7 +782,7 @@
     </div>
 
     <div class="p-group">
-      <h3 class="p-sub" data-anim="up">Pekarski nadev</h3>
+      <h3 class="p-sub" id="pekarski-nadev" data-anim="up">Pekarski nadev</h3>
       <article class="item pail" data-id="spanac" data-anim="up" style="--accent:#3E7D3A">
         <div class="pail-fig" style="--tint:#C9DFB0">
           <svg aria-hidden="true"><use href="#pail"/></svg>
@@ -833,6 +927,9 @@
     </div>
   </div>
 </section>
+
+</div>
+</div>
 
 <!-- ============ O NAMA ============ -->
 <section class="about" id="o-nama">
@@ -996,6 +1093,67 @@
     if (e.key === 'Escape' && nav.classList.contains('open')) { toggleMenu(false); burger.focus(); }
   });
   matchMedia('(min-width: 861px)').addEventListener('change', function (e) { if (e.matches) toggleMenu(false); });
+})();
+</script>
+<script>
+/* Kategorije proizvoda: padajući meni ispod "Proizvodi" i bočni meni (na telefonu traka) sa aktivnom kategorijom */
+(function () {
+  var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var desktop = matchMedia('(min-width: 861px)');
+
+  /* Padajući meni: otvara se mišem ili tastaturom, zatvara se 150 ms pošto miš ode */
+  var box = document.querySelector('.has-sub');
+  var trigger = box.querySelector('a');
+  var timer, quiet = false;
+  function setOpen(open) {
+    clearTimeout(timer);
+    box.classList.toggle('open', open);
+    // na telefonu je podlista uvek vidljiva
+    trigger.setAttribute('aria-expanded', desktop.matches ? open : true);
+  }
+  setOpen(false);
+  box.addEventListener('mouseenter', function () { if (desktop.matches) setOpen(true); });
+  box.addEventListener('mouseleave', function () {
+    if (!desktop.matches) return;
+    clearTimeout(timer);
+    timer = setTimeout(function () { setOpen(false); }, 150);
+  });
+  box.addEventListener('focusin', function () { if (desktop.matches && !quiet) setOpen(true); });
+  box.addEventListener('focusout', function (e) { if (!box.contains(e.relatedTarget)) setOpen(false); });
+  box.addEventListener('click', function (e) { if (desktop.matches && e.target.closest('a')) setOpen(false); });
+  addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape' || !box.classList.contains('open')) return;
+    setOpen(false);
+    quiet = true; trigger.focus(); quiet = false;
+  });
+  desktop.addEventListener('change', function () { setOpen(false); });
+
+  /* Aktivna kategorija: ona koja prelazi zamišljenu liniju na 40% visine ekrana */
+  var strip = document.querySelector('.cats ul');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.cats a'));
+  function setActive(a) {
+    links.forEach(function (l) {
+      l.classList.toggle('is-active', l === a);
+      if (l === a) l.setAttribute('aria-current', 'true'); else l.removeAttribute('aria-current');
+    });
+    // na traci: aktivni čip se pomeri u vidno polje (samo vodoravno, stranica se ne pomera)
+    if (strip.scrollWidth > strip.clientWidth) {
+      var left = strip.scrollLeft + a.getBoundingClientRect().left - strip.getBoundingClientRect().left - (strip.clientWidth - a.offsetWidth) / 2;
+      strip.scrollTo({ left: left, behavior: calm ? 'auto' : 'smooth' });
+    }
+  }
+  setActive(links[0]);
+  if (!('IntersectionObserver' in window)) return;
+  var byTarget = new Map();
+  links.forEach(function (a) {
+    var el = document.getElementById(a.hash.slice(1));
+    if (el.id === 'pekarski-nadev') el = el.closest('.p-group');
+    byTarget.set(el, a);
+  });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) setActive(byTarget.get(e.target)); });
+  }, { rootMargin: '-40% 0px -59% 0px' });
+  byTarget.forEach(function (a, el) { io.observe(el); });
 })();
 </script>
 <script>
