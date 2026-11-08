@@ -328,11 +328,11 @@
 
   /* ===== Kategorije proizvoda =====
      Katalog (od "Naši proizvodi" do "Topinzi"): uska kolona levo, proizvodi desno.
-     Kolona stoji uz levu ivicu ekrana, a proizvodi se pružaju do desne ivice centriranog okvira (.wrap).
-     Širina kolone = najduži naziv podebljan (9.3em) + mesto za talas; ispod 1280px okvir je ceo ekran, pa je kolona sama unutar njega.
+     Kolona stoji uz levu ivicu ekrana; sadržaj sekcija (najviše 1200px) je centriran u prostoru između kolone i desne ivice ekrana.
+     Širina kolone = najduži naziv podebljan (9.3em) + mesto za talas.
      Ispod 900px kolona postaje vodoravna traka sa čipovima, lepljiva ispod menija. */
-  .catalog{display:grid;grid-template-columns:calc(9.4em + 24px) minmax(0,1fr);column-gap:clamp(32px,3vw,48px);padding-inline:var(--pad) max(var(--pad),calc(50% - var(--max)/2 + var(--pad)))}
-  .catalog .wrap{max-width:none;padding-inline:0}
+  .catalog{display:grid;grid-template-columns:calc(9.4em + 24px) minmax(0,1fr);column-gap:clamp(32px,3vw,48px);padding-inline:var(--pad)}
+  .catalog .wrap{max-width:1200px;padding-inline:0}
   .catalog :is(section,.pails,.p-sub){scroll-margin-top:96px}
   .cats-col{padding-top:clamp(150px,16vw,250px)}
   .cats{position:sticky;top:100px;transition:top .4s var(--ease)}
