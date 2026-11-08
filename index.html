@@ -367,21 +367,36 @@
     .catalog .products{padding-top:clamp(28px,5vw,44px)}
   }
 
-  /* Padajući meni ispod "Proizvodi" (na telefonu: uvučena podlista) */
+  /* Padajući meni ispod "Proizvodi": zasebne etikete jedna ispod druge, bez zajedničkog panela (na telefonu: uvučena podlista).
+     Gornji padding je nevidljiva oblast između reči "Proizvodi" i etiketa, pa se meni ne zatvara usput. */
   .has-sub{position:relative}
   .sub ul{list-style:none}
   .sub a::after{display:none}
   @media (min-width:861px){
-    .sub{position:absolute;top:100%;left:50%;width:max-content;padding-top:14px;translate:-50% 0;transform-origin:50% 0;opacity:0;visibility:hidden;transform:translateY(-6px) scale(.96)}
-    .has-sub.open .sub{opacity:1;visibility:visible;transform:none}
-    .sub ul{padding:8px;background:var(--paper);border:2px solid var(--ink);border-radius:18px;box-shadow:0 16px 32px -14px rgba(46,21,8,.4)}
-    .sub a,.sub a:hover,.sub a:focus-visible{display:block;padding:7px 16px;border-radius:10px;font-weight:500;transform:none}
-    .sub a:hover,.sub a:focus-visible{color:var(--red);background:rgba(255,200,20,.22)}
+    .sub{position:absolute;top:100%;left:0;width:max-content;padding-top:12px;opacity:0;visibility:hidden;transition:opacity .15s ease,visibility 0s .15s}
+    .has-sub.open .sub{opacity:1;visibility:visible;transition:opacity .15s ease}
+    .sub ul{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+    .sub a,.sub a:hover,.sub a:focus-visible{display:flex;align-items:center;gap:8px;padding:.38em 1em .38em .8em;background:#FBF1DF;border-radius:255px 18px 225px 18px/18px 225px 18px 255px;box-shadow:0 2px 6px rgba(90,50,20,.12);font-size:.9em;white-space:nowrap;transform:none}
+    .sub a::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--dot)}
   }
+  /* Etikete ispadnu jedna za drugom, naizmenično nakrivljene; pri zatvaranju nestaju zajedno */
   @media (min-width:861px) and (prefers-reduced-motion:no-preference){
-    .sub{transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1),visibility 0s .25s}
-    .has-sub.open .sub{transition-delay:0s}
+    .sub{transform:translateY(-4px);transition:opacity .15s ease,transform .15s ease,visibility 0s .15s}
+    .has-sub.open .sub{transform:none;transition:none}
+    .sub li{--r:-3deg}
+    .sub li:nth-child(even){--r:3deg}
+    .sub li:nth-child(2){--sd:.04s}
+    .sub li:nth-child(3){--sd:.08s}
+    .sub li:nth-child(4){--sd:.12s}
+    .sub li:nth-child(5){--sd:.16s}
+    .sub li:nth-child(6){--sd:.2s}
+    .has-sub.open .sub li{animation:sub-in .3s cubic-bezier(.34,1.56,.64,1) var(--sd,0s) both}
+    .sub a{transition:transform .25s cubic-bezier(.34,1.56,.64,1)}
+    .sub a::before{transition:transform .2s ease}
+    .sub a:hover,.sub a:focus-visible{transform:scale(1.05)}
+    .sub a:hover::before,.sub a:focus-visible::before{transform:scale(1.4)}
   }
+  @keyframes sub-in{from{opacity:0;transform:translateY(-8px) rotate(var(--r))}}
   @media (max-width:860px){
     nav#meni{justify-content:safe center;overflow-y:auto}
     .sub ul{padding:2px 0 6px 1.2em}
@@ -611,12 +626,12 @@
         <a href="#proizvodi" aria-controls="meni-kategorije">Proizvodi</a>
         <div class="sub" id="meni-kategorije">
           <ul>
-            <li><a href="#lista-proizvoda">Voćna punjenja</a></li>
-            <li><a href="#pekarski-nadev">Pekarski nadev</a></li>
-            <li><a href="#najprodavaniji">Najprodavaniji</a></li>
-            <li><a href="#marmelade">Marmelade</a></li>
-            <li><a href="#glazure">Glazure, prelivi i nadevi</a></li>
-            <li><a href="#topinzi">Topinzi</a></li>
+            <li style="--dot:#D7263D"><a href="#lista-proizvoda">Voćna punjenja</a></li>
+            <li style="--dot:#3E7D3A"><a href="#pekarski-nadev">Pekarski nadev</a></li>
+            <li style="--dot:#F57C00"><a href="#najprodavaniji">Najprodavaniji</a></li>
+            <li style="--dot:#A0284A"><a href="#marmelade">Marmelade</a></li>
+            <li style="--dot:#B5651D"><a href="#glazure">Glazure, prelivi i nadevi</a></li>
+            <li style="--dot:#5A3221"><a href="#topinzi">Topinzi</a></li>
           </ul>
         </div>
       </div>
