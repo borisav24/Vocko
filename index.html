@@ -328,8 +328,10 @@
 
   /* ===== Kategorije proizvoda =====
      Katalog (od "Naši proizvodi" do "Topinzi"): uska kolona levo, proizvodi desno.
+     Kolona stoji uz levu ivicu ekrana, a proizvodi se pružaju do desne ivice centriranog okvira (.wrap).
+     Širina kolone = najduži naziv podebljan (9.3em) + mesto za talas; ispod 1280px okvir je ceo ekran, pa je kolona sama unutar njega.
      Ispod 900px kolona postaje vodoravna traka sa čipovima, lepljiva ispod menija. */
-  .catalog{max-width:var(--max);margin-inline:auto;padding-inline:var(--pad);display:grid;grid-template-columns:clamp(170px,15vw,210px) minmax(0,1fr);column-gap:clamp(28px,4vw,64px)}
+  .catalog{display:grid;grid-template-columns:calc(9.4em + 24px) minmax(0,1fr);column-gap:clamp(32px,3vw,48px);padding-inline:var(--pad) max(var(--pad),calc(50% - var(--max)/2 + var(--pad)))}
   .catalog .wrap{max-width:none;padding-inline:0}
   .catalog :is(section,.pails,.p-sub){scroll-margin-top:96px}
   .cats-col{padding-top:clamp(150px,16vw,250px)}
@@ -337,7 +339,7 @@
   body:has(header.hide) .cats{top:28px}
   .cats-title{font-family:var(--hand);font-weight:600;font-size:2rem;line-height:1;color:var(--head);margin-bottom:12px}
   .cats ul{list-style:none}
-  .cats a{position:relative;display:inline-block;padding:7px 0 7px 24px;color:var(--text);text-decoration:none;line-height:1.25;transition:color .25s,translate .3s var(--ease)}
+  .cats a{position:relative;display:inline-block;padding:7px 0 7px 24px;white-space:nowrap;color:var(--text);text-decoration:none;line-height:1.25;transition:color .25s,translate .3s var(--ease)}
   .cats a::before{content:"";position:absolute;left:0;top:50%;width:16px;height:8px;margin-top:-4px;background:var(--red);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c20-4 38 2 58 0s40-3 58 0' fill='none' stroke='%23CF2B38' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 8' preserveAspectRatio='none'%3E%3Cpath d='M2 5c20-4 38 2 58 0s40-3 58 0' fill='none' stroke='%23CF2B38' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
   .cats a.is-active{font-weight:700;color:var(--red)}
   .cats a.is-active::before{transform:none}
@@ -349,6 +351,12 @@
     .catalog #topinzi .pails{--n:4}
     .catalog .p-group{grid-template-columns:repeat(3,minmax(0,1fr))}
     .catalog .p-note{grid-column:3}
+  }
+  /* Na vrlo širokim ekranima ima mesta za 4 kantice u redu iste veličine */
+  @media (min-width:1800px){
+    .catalog :is(.products,.p-line) .pails{--n:4}
+    .catalog .p-group{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .catalog .p-note{grid-column:3/5}
   }
   @media (max-width:899px){
     .catalog{display:block}
