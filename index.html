@@ -42,6 +42,10 @@
   html,body{overflow-x:clip}
   html.noscroll{overflow:hidden}
   body{font-family:'Alegreya Sans',system-ui,sans-serif;font-size:clamp(1.125rem,1.05rem + .3vw,1.3rem);line-height:1.5;color:var(--ink);background:var(--paper)}
+  /* Kursor: strelica preko teksta, ruka na svemu što je klikabilno, I-kursor samo u poljima za kucanje. Označavanje teksta i dalje radi. */
+  body{cursor:default}
+  a[href],button:not(:disabled),label[for],summary,input[type=checkbox],input[type=radio]{cursor:pointer}
+  input:not([type=checkbox]):not([type=radio]),textarea{cursor:text}
   h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.04;letter-spacing:-.01em}
   .products,.best,.p-line,.about,.quotes,.pd{color:var(--text)}
   :is(.products,.best,.p-line,.about,.quotes,.pd) :is(h2,h3){color:var(--head)}
